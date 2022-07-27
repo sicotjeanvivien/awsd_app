@@ -22,7 +22,7 @@ class GamesController extends AbstractController
             ]
         ];
 
-        return $this->render('games/index.html.twig', [
+        return $this->render('/games/index.html.twig', [
             'games' => $games,
         ]);
     }
@@ -30,6 +30,6 @@ class GamesController extends AbstractController
     #[Route('/morpion', name: 'game_morpion')]
     public function morpion()
     {
-        return $this->render('games/morpion/index.html.twig');
+        return $this->render('/games/morpion/index.html.twig');
     }
 }
