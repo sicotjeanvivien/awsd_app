@@ -1,0 +1,20 @@
+<VirtualHost *:80>
+    ServerName awsd.fr
+    ServerAlias www.awsd.fr
+
+    DocumentRoot /awsd.fr/public
+    <Directory /awsd.fr/public>
+        AllowOverride All
+        Order Allow,Deny
+        Allow from All
+    </Directory>
+
+    # uncomment the following lines if you install assets as symlinks
+    # or run into problems when compiling LESS/Sass/CoffeeScript assets
+    # <Directory /awsd.fr>
+    #     Options FollowSymlinks
+    # </Directory>
+
+    ErrorLog /var/log/apache2/project_error.log
+    CustomLog /var/log/apache2/project_access.log combined
+</VirtualHost>
