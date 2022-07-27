@@ -1,0 +1,47 @@
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+nav {
+    background-color: var(--UCLA_blue);
+}
+
+nav a {
+    color: var(--light_silver) !important;
+
+}
+
+.img_size {
+    width: 3rem;
+    height: auto;
+}
+
+.img_background {
+    background-color: var(--light_silver);
+}
+
+.footer {
+    display: flex;
+    flex: 1;
+    padding: 2rem 0;
+    border-top: 1px solid #eaeaea;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.logo {
+    height: 1em;
+    margin-left: 0.5rem;
+}

@@ -1,0 +1,14 @@
+.case {
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    font-size: 100px;
+    border: 3px solid white;
+}
+
+.jeu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 450px;
+    margin: auto;
+}

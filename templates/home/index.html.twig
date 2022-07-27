@@ -3,11 +3,11 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
+{{ parent() }}
 {% endblock %}
 {% block javascripts %}
-    {{ parent() }}
-     {{ encore_entry_script_tags('checkout') }}
+{{ parent() }}
+{{ encore_entry_script_tags('Morpion') }}
 {% endblock %}
 
 {% block body %}
@@ -15,4 +15,7 @@
 <div class="example-wrapper">
     <h1>Hello World! ✅</h1>
 </div>
+
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
 {% endblock %}

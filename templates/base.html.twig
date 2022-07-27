@@ -18,7 +18,11 @@
 </head>
 
 <body>
-    {% block body %}{% endblock %}
+
+    {% include "__part/header.html.twig" %}
+    <main class="container">
+        {% block body %}{% endblock %}
+    </main>
 </body>
 
 </html>
