@@ -3,11 +3,11 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block stylesheets %}
-{{ parent() }}
+    {{ parent() }}
 {% endblock %}
 {% block javascripts %}
-{{ parent() }}
-{{ encore_entry_script_tags('Morpion') }}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
 
 {% block body %}
