@@ -17,7 +17,7 @@ class GamesController extends AbstractController
             [
                 "name" => "Morpion",
                 "rules" => "Le premier joueur a aligner 3 symboles identiques gagne la partie. Attention, le joueur qui débute est toujours avantagé pour gagner. Pensez donc à alterner!",
-                "image" => "/",
+                "image" => "/img/morpion_img.png",
                 "link" => "game_morpion"
             ]
         ];
