@@ -24,6 +24,7 @@ Encore
     .addEntry('AppReact', './assets/react/App/App.jsx')
     .addEntry('Morpion', './assets/react/Morpion/Morpion.jsx')
     .addEntry('Home', './assets/react/Home/Home.jsx')
+    .addEntry('RosetteTwitch', './assets/react/RosetteTwitch/RosetteTwitch.jsx')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

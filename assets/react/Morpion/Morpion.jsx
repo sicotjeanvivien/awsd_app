@@ -47,7 +47,6 @@ const MorpionGame = () => {
 			setGameStatus("Victoire du joueur " + player);
 			setGameFinished(true);
 		} else if (!checkCellIfVoid(newBoard)) {
-			console.log("null");
 			setGameStatus("Match nul!!!");
 		} else {
 			setGameStatus("Tour du joueur " + newPlayer);

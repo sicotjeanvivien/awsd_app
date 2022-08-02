@@ -14,11 +14,9 @@ const Connexion = () => {
   })
 
   const handleChangeUsername = useCallback((e) => {
-    console.log(e.currentTarget);
     setUsername(e.currentTarget.value)
   })
   const handleChangePassword = useCallback((e) => {
-    console.log(e.currentTarget);
     setPassword(e.currentTarget.value)
   })
   const submited = useCallback((e) => {

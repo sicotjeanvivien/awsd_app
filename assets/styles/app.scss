@@ -17,8 +17,16 @@ body {
   color: var(--light_silver);
 }
 
+main {
+  min-height: 75vh !important;
+}
+
 @import 'header';
 @import 'footer';
+
+@import 'modal';
+
 @import 'games';
 @import 'morpion';
-@import 'modal';
+
+@import 'rosetteTwitch';
