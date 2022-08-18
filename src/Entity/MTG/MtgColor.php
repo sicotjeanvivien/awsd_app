@@ -5,6 +5,8 @@ namespace App\Entity\MTG;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\CommunAttributesTrait;
 use App\Repository\MTG\MtgColorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
@@ -20,6 +22,14 @@ class MtgColor
 
     #[ORM\Column(type: 'string', length: 50)]
     private $name;
+
+    #[ORM\ManyToMany(targetEntity: MtgCard::class, mappedBy: 'mtgColors')]
+    private $mtgCards;
+
+    public function __construct()
+    {
+        $this->mtgCards = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -46,6 +56,33 @@ class MtgColor
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+     /**
+     * @return Collection<int, MtgCard>
+     */
+    public function getMtgCards(): Collection
+    {
+        return $this->mtgCards;
+    }
+
+    public function addMtgCard(MtgCard $mtgCard): self
+    {
+        if (!$this->mtgCards->contains($mtgCard)) {
+            $this->mtgCards[] = $mtgCard;
+            $mtgCard->addMtgColor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMtgCard(MtgCard $mtgCard): self
+    {
+        if ($this->mtgCards->removeElement($mtgCard)) {
+            $mtgCard->removeMtgColor($this);
+        }
 
         return $this;
     }

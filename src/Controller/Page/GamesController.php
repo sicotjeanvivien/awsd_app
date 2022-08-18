@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/games')]
 class GamesController extends AbstractController
 {
-    #[Route('', name: 'app_games')]
+    #[Route('', name: 'app_games', methods:["GET"])]
     public function index(): Response
     {
 
@@ -27,7 +27,7 @@ class GamesController extends AbstractController
         ]);
     }
 
-    #[Route('/morpion', name: 'game_morpion')]
+    #[Route('/morpion', name: 'game_morpion', methods:["GET"])]
     public function morpion()
     {
         return $this->render('/games/morpion/index.html.twig');

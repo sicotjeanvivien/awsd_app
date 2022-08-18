@@ -6,11 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+#[Route('/profil')]
+class ProfilController extends AbstractController
 {
-    #[Route('', name: 'app_home', methods: ["GET"])]
+    #[Route('', name: 'app_profil', methods:["GET"])]
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', []);
+        return $this->render('profil/index.html.twig', [
+            'controller_name' => 'ProfilController',
+        ]);
     }
 }

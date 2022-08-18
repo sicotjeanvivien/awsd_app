@@ -4,7 +4,11 @@ import React, { useCallback, useEffect, useState } from "react";
 const Home = () => {
     return (
         <div>
-            Home Page
+            <h1>Bienvenu sur AWSD.FR</h1>
+            <p>Ce site rassemble plusieurs projets en un seul endroit. Certains sont visibles et trouvables simplement, d'autres sont cachés.</p>
+            <h2>Bonne chasse au trésor!!!</h2>
+            <h2><span className='bg-danger'>Attention</span></h2>
+            <tt>Certaines parties du sites peuvent être choquantes, dérangeantes ou étranges.</tt> 
         </div>
     )
 }

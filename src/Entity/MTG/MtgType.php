@@ -50,7 +50,7 @@ class MtgType
     {
         if (!$this->mtgCards->contains($mtgCard)) {
             $this->mtgCards[] = $mtgCard;
-            $mtgCard->addType($this);
+            $mtgCard->addMtgType($this);
         }
 
         return $this;
@@ -59,7 +59,7 @@ class MtgType
     public function removeMtgCard(MtgCard $mtgCard): self
     {
         if ($this->mtgCards->removeElement($mtgCard)) {
-            $mtgCard->removeType($this);
+            $mtgCard->removeMtgType($this);
         }
 
         return $this;

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,6 +31,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $authToken = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $authTokenGenerationDate = null;
 
     public function getId(): ?int
     {
@@ -111,6 +118,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getAuthToken(): ?string
+    {
+        return $this->authToken;
+    }
+
+    public function setAuthToken(?string $authToken): self
+    {
+        $this->authToken = $authToken;
+
+        return $this;
+    }
+
+    public function getAuthTokenGenerationDate(): ?\DateTimeInterface
+    {
+        return $this->authTokenGenerationDate;
+    }
+
+    public function setAuthTokenGenerationDate(?\DateTimeInterface $authTokenGenerationDate): self
+    {
+        $this->authTokenGenerationDate = $authTokenGenerationDate;
+
+        return $this;
     }
 
 }

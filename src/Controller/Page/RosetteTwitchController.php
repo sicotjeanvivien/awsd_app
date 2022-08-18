@@ -6,10 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/page/rosette-twitch')]
+#[Route('/rosette-twitch')]
 class RosetteTwitchController extends AbstractController
 {
-    #[Route('', name: 'app_rosette_twitch')]
+    #[Route('', name: 'app_rosette_twitch', methods: ["GET"])]
     public function index(): Response
     {
         return $this->render('rosette_twitch/index.html.twig', [
