@@ -15,6 +15,8 @@ const Connexion = () => {
   const [user, setUser] = useState();
   const [hiddenLoginButton, setHiddenLoginButton] = useState(false);
   const [calledFormInModal, setCalledFormInModal] = useState();
+  const [signinFormMessage, setSigninFormMessage] = useState("");
+  const [signinFormCSS, setSigninFormCSS] = useState("");
 
   useEffect(() => {
     checkIfUserIsConnected();
@@ -41,10 +43,8 @@ const Connexion = () => {
     e.preventDefault();
     let data = {
       "security": {
-        "credentials": {
-          "login": username,
-          "password": password
-        }
+        "username": username,
+        "password": password
       }
     };
     Security.login(data).then(res => renderViewIfUserIsConnected(res));
@@ -57,11 +57,15 @@ const Connexion = () => {
       "password": password,
       "passwordVerified": passwordVerified
     };
-
-    console.log(data);
     if (checkIfDataForSigninIsCorrect(data)) {
       Security.signin(data).then(res => {
         console.log(res);
+        setSigninFormMessage(res.message);
+        setSigninFormCSS("alert-danger");
+        if (res.error) { 
+          login(e);
+          setSigninFormCSS("alert-success");
+        };
       })
     }
   });
@@ -98,7 +102,6 @@ const Connexion = () => {
     console.log(error);
     return error;
   }
-
   const renderViewIfUserIsConnected = (res) => {
     if (typeof res === "object" && res.hasOwnProperty("token") && res.token.length) {
       setHiddenLoginButton(true);
@@ -113,8 +116,8 @@ const Connexion = () => {
   });
   let authButton = (
     <>
-      <button type="button" className="btn btn-outline-light" data-form="login" onClick={(e) => handleClickShow(e)}>Connexion</button>
-      <button type="button" className="btn btn-outline-light" data-form="signin" onClick={(e) => handleClickShow(e)}>s'inscrire</button>
+      <button type="button" className="btn ms-2 btn-outline-light" data-form="login" onClick={(e) => handleClickShow(e)}>Connexion</button>
+      <button type="button" className="btn ms-2 btn-outline-light" data-form="signin" onClick={(e) => handleClickShow(e)}>s'inscrire</button>
     </>
   );
   if (hiddenLoginButton) {
@@ -133,7 +136,9 @@ const Connexion = () => {
   // FORM / MODAL
   const handleClickShow = useCallback((e) => {
     setUsername("");
+    setEmail("")
     setPassword("");
+    setPasswordVerified("");
     setCalledFormInModal(e.currentTarget.dataset.form);
     setModelHidden("d-block");
   });
@@ -163,6 +168,8 @@ const Connexion = () => {
         handleChangePasswordVerified={handleChangePasswordVerified}
         handleClickHidden={handleClickHidden}
         signIn={signIn}
+        signinFormMessage={signinFormMessage}
+        signinFormCSS={signinFormCSS}
       />
     )
   }
@@ -170,7 +177,7 @@ const Connexion = () => {
   return (
     <>
       {/* button */}
-      <div className="d-flex justify-cont-end align-items-center ">
+      <div className="d-flex align-items-center ">
         {authButton}
       </div>
 

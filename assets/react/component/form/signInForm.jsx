@@ -6,7 +6,8 @@ const SignInForm = ({
     password, handleChangePassword,
     passwordVerified, handleChangePasswordVerified,
     handleClickHidden,
-    signIn
+    signIn,
+    signinFormMessage, signinFormCSS
 }) => {
     return (
         <form onSubmit={(e) => signIn(e)}>
@@ -33,6 +34,11 @@ const SignInForm = ({
             <div className="d-flex justify-content-around">
                 <input type="submit" className="btn btn-danger" value="Annuler" onClick={handleClickHidden} />
                 <input type="submit" className="btn btn-primary" value="S'inscrire" />
+            </div>
+            <div className="mb-3" >
+                <div className={"alert " + signinFormCSS} role="alert">
+                    {signinFormMessage}
+                </div>
             </div>
         </form>
     )

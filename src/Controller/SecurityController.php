@@ -60,10 +60,11 @@ class SecurityController extends AbstractController
     {
 
         $error =  false;
-        $message = "Les informations transmises comportent des erreurs.";
-        if ($data =  json_decode($this->request->getCurrentRequest()->getContent())) {
-
-            dump($data->username);
+        $message = "Les informations transmises comportent des erreurs. Le nom d'utilisateur ou l'adresse email sont déjà utilisés.";
+        $data =  json_decode($this->request->getCurrentRequest()->getContent());
+        if (!empty($data) && $this->userService->add($data)) {
+            $error =  true;
+            $message = "L'utilsateur a été créé.";
         }
 
         return $this->json([

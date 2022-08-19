@@ -31,6 +31,10 @@ export default class Security {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        }).then(res => res.json())
+        }).then(res => {
+            console.log(res);
+            if (res.ok) return res.json();
+            return {"error" :  false, "message" : "code error : " + res.status}
+        })
     }
 }
