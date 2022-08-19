@@ -29,7 +29,7 @@ class MtgCardRetrieveCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->comment("Command START");
 
-        dump(Card::find(386616));
+        // dump(Card::find(386616));
 
         $io->success("Command END");
 

@@ -29,7 +29,6 @@ class SecurityService
             ->setAuthToken($token)
             ->setAuthTokenGenerationDate(new DateTime("now"));
         $this->userRepository->add($user, true);
-        dump($token);
         return $token;
     }
 }
