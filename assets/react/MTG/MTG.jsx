@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import React, { useCallback, useEffect, useState } from "react";
 
 import Spinner from "../component/Spinner";
-import MTGApi from "../Service/MTGAPI";
+import MTGApi from "../Service/MTGApi";
 import Extension from "./components/Extension";
 import Card from "./components/Card";
 import Pagination from "./components/Pagination";
