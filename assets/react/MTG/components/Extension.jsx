@@ -1,5 +1,5 @@
 import React from "react";
-const ExtensionCard = ({ extension }) => {
+const Extension = ({ extension, handleSelectedExtension }) => {
     let dateRelease = new Date(extension.releaseDate);
     return <div className="col-xl-6 p-2">
         <div className="card">
@@ -17,8 +17,7 @@ const ExtensionCard = ({ extension }) => {
                 </div>
                 <div className="col-4 d-flex justify-content-end">
                     <div>
-                        <a className="btn btn-outline-info" data-extension_id={extension.id} href="#">Cartes</a>
-
+                        <button className="btn btn-outline-info" onClick={handleSelectedExtension} data-extension_code={extension.code}>Cartes</button>
                     </div>
                 </div>
             </div>
@@ -27,4 +26,4 @@ const ExtensionCard = ({ extension }) => {
 
 }
 
-export default ExtensionCard;
+export default Extension;

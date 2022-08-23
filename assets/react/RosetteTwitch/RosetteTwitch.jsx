@@ -18,7 +18,6 @@ const RosetteTwitch = () => {
 
 	const handleSelectedChannel = useCallback((e) => {
 		let elem = e.currentTarget;
-		console.log(channels, elem.dataset.key);
 		setChannelSelected(channels.data[elem.dataset.key]);
 	});
 

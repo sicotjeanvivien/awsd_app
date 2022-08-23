@@ -3,6 +3,7 @@
 namespace App\Entity\MTG;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\OpenApi\Options;
 use App\Entity\CommunAttributesTrait;
 use App\Repository\MTG\MtgSetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 #[ORM\Entity(repositoryClass: MtgSetRepository::class)]
-#[ApiResource]
+#[ApiResource(paginationEnabled: false)]
 #[HasLifecycleCallbacks]
 class MtgSet
 {
@@ -114,5 +115,4 @@ class MtgSet
 
         return $this;
     }
-
 }

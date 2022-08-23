@@ -7,13 +7,18 @@ a {
     box-sizing: border-box;
 }
 
-nav {
+.nav-custom {
     background-color: var(--UCLA_blue);
 }
 
 nav a {
     color: var(--light_silver) !important;
 
+}
+
+.page-link{
+    background-color: var(--UCLA_blue);
+    color: white;
 }
 
 .img_size {

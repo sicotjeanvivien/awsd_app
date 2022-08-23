@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 #[ORM\Entity(repositoryClass: MtgCardRepository::class)]
 #[
-    ApiResource(),
+    ApiResource(paginationEnabled:true, paginationItemsPerPage:30),
     ApiFilter(SearchFilter::class, properties: ['id'=> 'exact', "mtgSet.code" => "exact"])
 ]
 #[HasLifecycleCallbacks]

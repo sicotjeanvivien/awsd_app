@@ -59,7 +59,6 @@ const Connexion = () => {
     };
     if (checkIfDataForSigninIsCorrect(data)) {
       Security.signin(data).then(res => {
-        console.log(res);
         setSigninFormMessage(res.message);
         setSigninFormCSS("alert-danger");
         if (res.error) { 
@@ -99,7 +98,6 @@ const Connexion = () => {
       error = false;
       document.querySelector("#js_signin_password_verified").classList.add("is-invalid");
     }
-    console.log(error);
     return error;
   }
   const renderViewIfUserIsConnected = (res) => {
