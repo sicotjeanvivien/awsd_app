@@ -2,6 +2,20 @@
 
 namespace App\Command\MTG;
 
+use App\Entity\MTG\MtgArtist;
+use App\Entity\MTG\MtgCard;
+use App\Entity\MTG\MtgManaCost;
+use App\Entity\MTG\MtgRarity;
+use App\Repository\MTG\MtgArtistRepository;
+use App\Repository\MTG\MtgCardRepository;
+use App\Repository\MTG\MtgColorRepository;
+use App\Repository\MTG\MtgManaCostRepository;
+use App\Repository\MTG\MtgRarityRepository;
+use App\Repository\MTG\MtgSetRepository;
+use App\Repository\MTG\MtgSubtypeRepository;
+use App\Repository\MTG\MtgSupertypeRepository;
+use App\Repository\MTG\MtgTypeRepository;
+use App\Service\MtgService;
 use mtgsdk\Card;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -19,8 +33,19 @@ class MtgCardRetrieveCommand extends Command
     {
     }
 
-    public function __construct()
-    {
+    public function __construct(
+        private MtgCardRepository $mtgCardRepository,
+        private MtgTypeRepository $mtgTypeRepository,
+        private MtgSetRepository $mtgSetRepository,
+        private MtgSubtypeRepository $mtgSubtypeRepository,
+        private MtgSupertypeRepository $mtgSupertypeRepository,
+        private MtgManaCostRepository $mtgManaCostRepository,
+        private MtgRarityRepository $mtgRarityRepository,
+        private MtgArtistRepository $mtgArtistRepository,
+        private MtgColorRepository $mtgColorRepository,
+
+        private MtgService $mtgService
+    ) {
         parent::__construct();
     }
 
@@ -29,8 +54,8 @@ class MtgCardRetrieveCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->comment("Command START");
 
-        // dump(Card::find(386616));
-
+        $mtgSet = $this->mtgSetRepository->findOneBy(["code" => "NEO"]);
+        $this->mtgService->loadingCardBySet($mtgSet);
         $io->success("Command END");
 
         return Command::SUCCESS;

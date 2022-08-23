@@ -4,29 +4,31 @@ namespace App\Entity\MTG;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\CommunAttributesTrait;
-use App\Repository\MTG\MtgTypeRepository;
+use App\Repository\MTG\MtgRarityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
-#[ORM\Entity(repositoryClass: MtgTypeRepository::class)]
+#[ORM\Entity(repositoryClass: MtgRarityRepository::class)]
 #[ApiResource]
 #[HasLifecycleCallbacks]
-class MtgType
+class MtgRarity
 {
+
     use CommunAttributesTrait;
 
-    #[ORM\Column(type: 'string', length: 150)]
-    private $name;
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: MtgCard::class, mappedBy: 'mtgTypes')]
-    private $mtgCards;
+    #[ORM\OneToMany(mappedBy: 'mtgRarity', targetEntity: MtgCard::class)]
+    private Collection $MtgCards;
 
     public function __construct()
     {
-        $this->mtgCards = new ArrayCollection();
+        $this->MtgCards = new ArrayCollection();
     }
+
 
     public function getName(): ?string
     {
@@ -45,14 +47,14 @@ class MtgType
      */
     public function getMtgCards(): Collection
     {
-        return $this->mtgCards;
+        return $this->MtgCards;
     }
 
     public function addMtgCard(MtgCard $mtgCard): self
     {
-        if (!$this->mtgCards->contains($mtgCard)) {
-            $this->mtgCards[] = $mtgCard;
-            $mtgCard->addMtgType($this);
+        if (!$this->MtgCards->contains($mtgCard)) {
+            $this->MtgCards->add($mtgCard);
+            $mtgCard->setMtgRarity($this);
         }
 
         return $this;
@@ -60,8 +62,11 @@ class MtgType
 
     public function removeMtgCard(MtgCard $mtgCard): self
     {
-        if ($this->mtgCards->removeElement($mtgCard)) {
-            $mtgCard->removeMtgType($this);
+        if ($this->MtgCards->removeElement($mtgCard)) {
+            // set the owning side to null (unless already changed)
+            if ($mtgCard->getMtgRarity() === $this) {
+                $mtgCard->setMtgRarity(null);
+            }
         }
 
         return $this;

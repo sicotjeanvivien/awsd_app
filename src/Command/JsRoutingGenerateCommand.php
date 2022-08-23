@@ -18,7 +18,7 @@ class JsRoutingGenerateCommand extends Command
     protected function configure(): void
     {
     }
-    public function __construct(private RouterInterface $route)
+    public function __construct(private RouterInterface $routerInterface)
     {
         parent::__construct();
     }
@@ -28,8 +28,20 @@ class JsRoutingGenerateCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $filename = dirname(__DIR__, 2) . "/assets/react/Service/routing.json";
         $jsRouting = [];
-        foreach ($this->route->getRouteCollection()->all() as $key => $route) {
-            $jsRouting[$key] = ["path" => $route->getPath()];
+
+        foreach ($this->routerInterface->getRouteCollection()->all() as $key => $route) {
+            if (!preg_match('/_profiler/', $route->getPath())) {
+                $parameters = [];
+                $jsPath = str_replace(".{_format}", "", $route->getPath());
+                foreach ($route->getRequirements() as $param => $requerement) {
+                    $parameters[$param] = "{" . $param . "}";
+                }
+                
+                $jsRouting[$key] = [
+                    "path" => $jsPath,
+                    "parameters" => $parameters
+                ];
+            }
         }
 
         if ($filename) {
@@ -37,7 +49,7 @@ class JsRoutingGenerateCommand extends Command
             fwrite($file, json_encode($jsRouting));
             fclose($file);
         }
-        
+
         $io->success('routing.json created.');
         return Command::SUCCESS;
     }

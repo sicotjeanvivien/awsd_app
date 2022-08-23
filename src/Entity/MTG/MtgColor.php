@@ -4,6 +4,7 @@ namespace App\Entity\MTG;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\CommunAttributesTrait;
+use App\Entity\MTG\MtgManaCost;
 use App\Repository\MTG\MtgColorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -23,17 +24,12 @@ class MtgColor
     #[ORM\Column(type: 'string', length: 50)]
     private $name;
 
-    #[ORM\ManyToMany(targetEntity: MtgCard::class, mappedBy: 'mtgColors')]
-    private $mtgCards;
+    #[ORM\OneToMany(mappedBy: 'color', targetEntity: MtgManaCost::class)]
+    private Collection $mtgManaCosts;
 
     public function __construct()
     {
-        $this->mtgCards = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
+        $this->manaCosts = new ArrayCollection();
     }
 
     public function getCode(): ?string
@@ -60,38 +56,35 @@ class MtgColor
         return $this;
     }
 
-     /**
-     * @return Collection<int, MtgCard>
+    /**
+     * @return Collection<int, MtgManaCost>
      */
-    public function getMtgCards(): Collection
+    public function getManaCosts(): Collection
     {
-        return $this->mtgCards;
+        return $this->manaCosts;
     }
 
-    public function addMtgCard(MtgCard $mtgCard): self
+    public function addManaCost(MtgManaCost $manaCost): self
     {
-        if (!$this->mtgCards->contains($mtgCard)) {
-            $this->mtgCards[] = $mtgCard;
-            $mtgCard->addMtgColor($this);
+        if (!$this->manaCosts->contains($manaCost)) {
+            $this->manaCosts->add($manaCost);
+            $manaCost->setColor($this);
         }
 
         return $this;
     }
 
-    public function removeMtgCard(MtgCard $mtgCard): self
+    public function removeManaCost(MtgManaCost $manaCost): self
     {
-        if ($this->mtgCards->removeElement($mtgCard)) {
-            $mtgCard->removeMtgColor($this);
+        if ($this->manaCosts->removeElement($manaCost)) {
+            // set the owning side to null (unless already changed)
+            if ($manaCost->getColor() === $this) {
+                $manaCost->setColor(null);
+            }
         }
 
         return $this;
     }
+
 }
 
-
-// INSERT INTO `mtg_color` (`id`, `code`, `name`, `created`, `updated`) VALUES
-// 	(1, 'W', 'White', '2022-03-18 10:28:19', '2022-03-18 10:28:19'),
-// 	(2, 'U', 'Blue', '2022-03-18 10:28:19', '2022-03-18 10:28:19'),
-// 	(3, 'B', 'Black', '2022-03-18 10:28:19', '2022-03-18 10:28:19'),
-// 	(4, 'R', 'Red', '2022-03-18 10:28:19', '2022-03-18 10:28:19'),
-// 	(5, 'G', 'Green', '2022-03-18 10:28:19', '2022-03-18 10:28:19');

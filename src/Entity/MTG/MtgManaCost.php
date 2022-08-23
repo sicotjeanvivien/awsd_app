@@ -4,38 +4,54 @@ namespace App\Entity\MTG;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\CommunAttributesTrait;
-use App\Repository\MTG\MtgTypeRepository;
+use App\Entity\MTG\MtgColor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
-#[ORM\Entity(repositoryClass: MtgTypeRepository::class)]
+#[ORM\Entity(repositoryClass: ManaCostRepository::class)]
 #[ApiResource]
 #[HasLifecycleCallbacks]
-class MtgType
+class MtgManaCost
 {
+
     use CommunAttributesTrait;
 
-    #[ORM\Column(type: 'string', length: 150)]
-    private $name;
+    #[ORM\Column]
+    private ?int $cost = null;
 
-    #[ORM\ManyToMany(targetEntity: MtgCard::class, mappedBy: 'mtgTypes')]
-    private $mtgCards;
+    #[ORM\ManyToOne(inversedBy: 'mtgManaCosts')]
+    private ?MtgColor $color = null;
+
+    #[ORM\ManyToMany(targetEntity: MtgCard::class, mappedBy: 'mtgManaCosts')]
+    private Collection $mtgCards;
 
     public function __construct()
     {
         $this->mtgCards = new ArrayCollection();
     }
 
-    public function getName(): ?string
+    public function getCost(): ?int
     {
-        return $this->name;
+        return $this->cost;
     }
 
-    public function setName(string $name): self
+    public function setCost(int $cost): self
     {
-        $this->name = $name;
+        $this->cost = $cost;
+
+        return $this;
+    }
+
+    public function getColor(): ?MtgColor
+    {
+        return $this->color;
+    }
+
+    public function setColor(?MtgColor $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }
@@ -51,8 +67,8 @@ class MtgType
     public function addMtgCard(MtgCard $mtgCard): self
     {
         if (!$this->mtgCards->contains($mtgCard)) {
-            $this->mtgCards[] = $mtgCard;
-            $mtgCard->addMtgType($this);
+            $this->mtgCards->add($mtgCard);
+            $mtgCard->addMtgManaCost($this);
         }
 
         return $this;
@@ -61,7 +77,7 @@ class MtgType
     public function removeMtgCard(MtgCard $mtgCard): self
     {
         if ($this->mtgCards->removeElement($mtgCard)) {
-            $mtgCard->removeMtgType($this);
+            $mtgCard->removeMtgManaCost($this);
         }
 
         return $this;

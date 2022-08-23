@@ -32,7 +32,6 @@ export default class Security {
             },
             body: JSON.stringify(data)
         }).then(res => {
-            console.log(res);
             if (res.ok) return res.json();
             return {"error" :  false, "message" : "code error : " + res.status}
         })

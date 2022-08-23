@@ -4,24 +4,24 @@ namespace App\Entity\MTG;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\CommunAttributesTrait;
-use App\Repository\MTG\MtgTypeRepository;
+use App\Repository\MTG\MtgArtistRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
-#[ORM\Entity(repositoryClass: MtgTypeRepository::class)]
+#[ORM\Entity(repositoryClass: MtgArtistRepository::class)]
 #[ApiResource]
 #[HasLifecycleCallbacks]
-class MtgType
+class MtgArtist
 {
     use CommunAttributesTrait;
 
-    #[ORM\Column(type: 'string', length: 150)]
-    private $name;
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: MtgCard::class, mappedBy: 'mtgTypes')]
-    private $mtgCards;
+    #[ORM\OneToMany(mappedBy: 'mtgArtist', targetEntity: MtgCard::class)]
+    private Collection $mtgCards;
 
     public function __construct()
     {
@@ -51,8 +51,8 @@ class MtgType
     public function addMtgCard(MtgCard $mtgCard): self
     {
         if (!$this->mtgCards->contains($mtgCard)) {
-            $this->mtgCards[] = $mtgCard;
-            $mtgCard->addMtgType($this);
+            $this->mtgCards->add($mtgCard);
+            $mtgCard->setMtgArtist($this);
         }
 
         return $this;
@@ -61,7 +61,10 @@ class MtgType
     public function removeMtgCard(MtgCard $mtgCard): self
     {
         if ($this->mtgCards->removeElement($mtgCard)) {
-            $mtgCard->removeMtgType($this);
+            // set the owning side to null (unless already changed)
+            if ($mtgCard->getMtgArtist() === $this) {
+                $mtgCard->setMtgArtist(null);
+            }
         }
 
         return $this;

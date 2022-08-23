@@ -37,7 +37,6 @@ class MtgTypeRetrieveCommand extends Command
             if (!in_array($type, $typeInBDD)) {
                 $typeNew = new MtgType();
                 $typeNew->setName($type);
-                $typeNew->onPrePersist();
                 $this->mtgTypeRepository->add($typeNew, true);
             }
         }
