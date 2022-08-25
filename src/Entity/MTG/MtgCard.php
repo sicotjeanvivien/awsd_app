@@ -12,11 +12,25 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MtgCardRepository::class)]
 #[
-    ApiResource(paginationEnabled:true, paginationItemsPerPage:30),
-    ApiFilter(SearchFilter::class, properties: ['id'=> 'exact', "mtgSet.code" => "exact"])
+    ApiResource(
+        paginationEnabled: true,
+        paginationItemsPerPage: 30,
+        collectionOperations: [
+            "get" => [
+                'normalization_context' => ["groups" => ["mtgCard:read:collection"]]
+            ],
+        ],
+        itemOperations: [
+            "get" => [
+                'normalization_context' => ["groups" => ["mtgCard:read:item"]]
+            ],
+        ]
+    ),
+    ApiFilter(SearchFilter::class, properties: ['id' => 'exact', "mtgSet.code" => "exact"])
 ]
 #[HasLifecycleCallbacks]
 class MtgCard
@@ -24,45 +38,59 @@ class MtgCard
     use CommunAttributesTrait;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["mtgCard:read:collection", "mtgCard:read:item"])]
     private $name;
 
     #[ORM\ManyToMany(targetEntity: MtgType::class, inversedBy: 'mtgCards')]
-    private $mtgTypes;
+    #[Groups(["mtgCard:read:item"])]
+    private Collection $mtgTypes;
 
     #[ORM\ManyToOne(targetEntity: MtgSet::class, inversedBy: 'mtgCards')]
+    #[Groups(["mtgCard:read:item"])]
     private $mtgSet;
 
     #[ORM\ManyToMany(targetEntity: MtgSubtype::class, inversedBy: 'mtgCards')]
-    private $mtgSubtypes;
+    #[Groups(["mtgCard:read:item"])]
+    private Collection $mtgSubtypes;
 
     #[ORM\ManyToMany(targetEntity: MtgSupertype::class, inversedBy: 'mtgCards')]
-    private $SuperTypes;
+    #[Groups(["mtgCard:read:item"])]
+    private Collection $SuperTypes;
 
     #[ORM\ManyToMany(targetEntity: MtgManaCost::class, inversedBy: 'mtgCards')]
+    #[Groups(["mtgCard:read:item"])]
     private Collection $mtgManaCosts;
 
     #[ORM\ManyToOne(inversedBy: 'MtgCards')]
+    #[Groups(["mtgCard:read:item"])]
     private ?MtgRarity $mtgRarity = null;
 
     #[ORM\ManyToOne(inversedBy: 'mtgCards')]
+    #[Groups(["mtgCard:read:item"])]
     private ?MtgArtist $mtgArtist = null;
 
     #[ORM\Column(length: 10, nullable: true)]
+    #[Groups(["mtgCard:read:item", "mtgCard:read:collection"])]
     private ?string $number = null;
 
     #[ORM\Column(length: 10, nullable: true)]
+    #[Groups(["mtgCard:read:item"])]
     private ?string $power = null;
 
     #[ORM\Column(length: 10, nullable: true)]
+    #[Groups(["mtgCard:read:item"])]
     private ?string $toughness = null;
 
     #[ORM\Column(length: 20, nullable: true)]
+    #[Groups(["mtgCard:read:item"])]
     private ?string $multiverseid = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(["mtgCard:read:item"])]
     private ?string $foreignTexts = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(["mtgCard:read:collection", "mtgCard:read:item"])]
     private ?string $imageUrl = null;
 
     public function __construct()

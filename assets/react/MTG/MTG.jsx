@@ -3,16 +3,19 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import Spinner from "../component/Spinner";
 import MTGApi from "../Service/MTGApi";
-import Extension from "./components/Extension";
-import Card from "./components/Card";
-import Pagination from "./components/Pagination";
+import CardDetail from "./components/CardDetail";
+import Extensions from "./components/Extensions";
+import Cards from "./components/Cards";
+import Error from "./components/Error";
 
 const MTG = () => {
 
     const [extensions, setExtensions] = useState({});
     const [extensionSelected, setExtensionSelected] = useState("");
     const [cards, setCards] = useState({});
+    const [cardDetail, setCardDetail] = useState({});
     const [pageCards, setPageCards] = useState(1);
+    const [lastPageCards, setLastPageCards] = useState(2);
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -20,7 +23,9 @@ const MTG = () => {
     }, []);
     useEffect(() => {
         setCards({});
-        loadCards();
+        if (extensionSelected.length) {
+            loadCards();
+        }
     }, [extensionSelected, setExtensionSelected, pageCards, setPageCards])
 
     // LOADING DATA
@@ -36,10 +41,17 @@ const MTG = () => {
     const loadCards = () => {
         MTGApi.getCards(extensionSelected, pageCards).then(res => {
             if (typeof res === "object" && !res.hasOwnProperty("error")) {
-                setCards(res);
+                let urltest = new URL(res["hydra:view"]["hydra:last"], location.origin);
+                setLastPageCards(urltest.searchParams.get("page"));
+                setCards(res["hydra:member"]);
             } else {
                 setError(res.message)
             }
+        });
+    }
+    const loadCard = (id) => {
+        MTGApi.getCard(id).then((res) => {
+            setCardDetail(res);
         });
     }
 
@@ -47,15 +59,23 @@ const MTG = () => {
     const handleSelectedExtension = useCallback((e) => {
         e.preventDefault();
         setExtensionSelected(e.currentTarget.dataset.extension_code);
-        // loadCards(e.currentTarget.dataset.extension_code);
     });
     const handleClickEmptyData = useCallback((e) => {
         e.preventDefault();
         setCards({});
+        setCardDetail({});
+        setPageCards(1);
         setExtensionSelected("");
     });
+    const handleClickEmptyCardDetail = useCallback((e) => {
+        setCardDetail({});
+    })
     const handleSelectedPageCard = useCallback((e, page) => {
         setPageCards(page);
+    })
+    const handleClickCardDetail = useCallback((e) => {
+        e.preventDefault();
+        loadCard(e.currentTarget.dataset.id);
     })
 
 
@@ -63,37 +83,36 @@ const MTG = () => {
 
     let renderView = <Spinner />;
     if (extensions.length && !extensionSelected.length) {
-        renderView = <>
-            <h1>Liste des extensions</h1>
-            {
-                extensions.map((value, key) => {
-                    return <Extension key={key} extension={value} handleSelectedExtension={handleSelectedExtension} />
-                })
-            }
-        </>
-    }
-    if (cards.length) {
         renderView = (
-            <>
-                <div className="col-12 d-flex">
-                    <button type="button" className="btn btn-outline-info" onClick={handleClickEmptyData}>Retour</button>
-                </div>
-                <h1>Liste cartes pour l'extension : </h1>
-                <div className="row row-cols-1 row-cols-md-3 g-4">
-                    {cards.map((value, key) => {
-                        return <Card key={key} card={value} />;
-
-                    })}
-                </div>
-                <Pagination pageCards={pageCards} handleSelectedPageCard={handleSelectedPageCard} />
-            </>
+            <Extensions
+                extensions={extensions}
+                handleSelectedExtension={handleSelectedExtension}
+            />
+        );
+    }
+    if (cards.length && !cardDetail.id) {
+        renderView = (
+            <Cards
+                cards={cards}
+                pageCards={pageCards}
+                lastPageCards={lastPageCards}
+                handleClickCardDetail={handleClickCardDetail}
+                handleSelectedPageCard={handleSelectedPageCard}
+                handleClickEmptyData={handleClickEmptyData}
+            />
+        );
+    }
+    if (cardDetail.id) {
+        renderView = (
+            <CardDetail
+                cardDetail={cardDetail}
+                handleClickEmptyCardDetail={handleClickEmptyCardDetail}
+            />
         );
     }
     if (error.length) {
         renderView = (
-            <div className="alert alert-danger" role="alert">
-                {error}
-            </div>
+            <Error message={error} />
         );
     }
 

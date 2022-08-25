@@ -11,7 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 #[ORM\Entity(repositoryClass: MtgRarityRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    collectionOperations: [
+        "get"
+    ],
+    itemOperations: [
+        "get"
+    ]
+)]
 #[HasLifecycleCallbacks]
 class MtgRarity
 {

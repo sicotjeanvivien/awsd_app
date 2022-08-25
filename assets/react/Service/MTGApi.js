@@ -2,6 +2,12 @@ import routing from "../Service/routing.json";
 
 export default class MTGApi {
 
+    constructor() {
+        this.headers = {
+            "accept": "application/Id+json"
+        };
+    }
+
     static async getExtensions() {
         let url = routing.api_mtg_sets_get_collection.path;
         return await fetch(url, {
@@ -21,13 +27,22 @@ export default class MTGApi {
         url.searchParams.append("page", page);
         return await fetch(url, {
             method: "GET",
-            headers: {
-                "accept": "application/json"
-            }
+            headers: this.headers
         }).then(res => {
             if (res.ok) return res.json();
             return { "error": false, "message": "code error : " + res.status }
         });
-        // let url = routing.api_mtg_cards_get_collection;
+    }
+
+    static async getCard(id) {
+        let url = window.location.origin + routing.api_mtg_cards_get_item.path;
+        url = url.replace("{id}", id);
+        return await fetch(url, {
+            method: "GET",
+            headers: this.headers
+        }).then(res => {
+            if (res.ok) return res.json();
+            return { "error": false, "message": "code error : " + res.status }
+        })
     }
 }

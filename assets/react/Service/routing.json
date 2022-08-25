@@ -12,157 +12,103 @@
     "api_jsonld_context": {
         "path": "\/api\/contexts\/{shortName}",
         "parameters": {
-            "shortName": "{shortName}"
+            "shortName": "{.+}"
+        }
+    },
+    "api_mtg_artists_get_collection": {
+        "path": "\/api\/mtg_artists",
+        "parameters": []
+    },
+    "api_mtg_artists_get_item": {
+        "path": "\/api\/mtg_artists\/{id}",
+        "parameters": {
+            "id": "{id}"
         }
     },
     "api_mtg_cards_get_collection": {
         "path": "\/api\/mtg_cards",
         "parameters": []
     },
-    "api_mtg_cards_post_collection": {
-        "path": "\/api\/mtg_cards",
-        "parameters": []
-    },
     "api_mtg_cards_get_item": {
         "path": "\/api\/mtg_cards\/{id}",
-        "parameters": []
-    },
-    "api_mtg_cards_delete_item": {
-        "path": "\/api\/mtg_cards\/{id}",
-        "parameters": []
-    },
-    "api_mtg_cards_put_item": {
-        "path": "\/api\/mtg_cards\/{id}",
-        "parameters": []
-    },
-    "api_mtg_cards_patch_item": {
-        "path": "\/api\/mtg_cards\/{id}",
-        "parameters": []
+        "parameters": {
+            "id": "{id}"
+        }
     },
     "api_mtg_colors_get_collection": {
         "path": "\/api\/mtg_colors",
         "parameters": []
     },
-    "api_mtg_colors_post_collection": {
-        "path": "\/api\/mtg_colors",
-        "parameters": []
-    },
     "api_mtg_colors_get_item": {
         "path": "\/api\/mtg_colors\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
+    "api_mtg_mana_costs_get_collection": {
+        "path": "\/api\/mtg_mana_costs",
         "parameters": []
     },
-    "api_mtg_colors_delete_item": {
-        "path": "\/api\/mtg_colors\/{id}",
+    "api_mtg_mana_costs_get_item": {
+        "path": "\/api\/mtg_mana_costs\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
+    "api_mtg_rarities_get_collection": {
+        "path": "\/api\/mtg_rarities",
         "parameters": []
     },
-    "api_mtg_colors_put_item": {
-        "path": "\/api\/mtg_colors\/{id}",
-        "parameters": []
-    },
-    "api_mtg_colors_patch_item": {
-        "path": "\/api\/mtg_colors\/{id}",
-        "parameters": []
+    "api_mtg_rarities_get_item": {
+        "path": "\/api\/mtg_rarities\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
     },
     "api_mtg_sets_get_collection": {
         "path": "\/api\/mtg_sets",
         "parameters": []
     },
-    "api_mtg_sets_post_collection": {
-        "path": "\/api\/mtg_sets",
-        "parameters": []
-    },
     "api_mtg_sets_get_item": {
         "path": "\/api\/mtg_sets\/{id}",
-        "parameters": []
-    },
-    "api_mtg_sets_delete_item": {
-        "path": "\/api\/mtg_sets\/{id}",
-        "parameters": []
-    },
-    "api_mtg_sets_put_item": {
-        "path": "\/api\/mtg_sets\/{id}",
-        "parameters": []
-    },
-    "api_mtg_sets_patch_item": {
-        "path": "\/api\/mtg_sets\/{id}",
-        "parameters": []
+        "parameters": {
+            "id": "{id}"
+        }
     },
     "api_mtg_subtypes_get_collection": {
         "path": "\/api\/mtg_subtypes",
         "parameters": []
     },
-    "api_mtg_subtypes_post_collection": {
-        "path": "\/api\/mtg_subtypes",
-        "parameters": []
-    },
     "api_mtg_subtypes_get_item": {
         "path": "\/api\/mtg_subtypes\/{id}",
-        "parameters": []
-    },
-    "api_mtg_subtypes_delete_item": {
-        "path": "\/api\/mtg_subtypes\/{id}",
-        "parameters": []
-    },
-    "api_mtg_subtypes_put_item": {
-        "path": "\/api\/mtg_subtypes\/{id}",
-        "parameters": []
-    },
-    "api_mtg_subtypes_patch_item": {
-        "path": "\/api\/mtg_subtypes\/{id}",
-        "parameters": []
+        "parameters": {
+            "id": "{id}"
+        }
     },
     "api_mtg_supertypes_get_collection": {
         "path": "\/api\/mtg_supertypes",
         "parameters": []
     },
-    "api_mtg_supertypes_post_collection": {
-        "path": "\/api\/mtg_supertypes",
-        "parameters": []
-    },
     "api_mtg_supertypes_get_item": {
         "path": "\/api\/mtg_supertypes\/{id}",
-        "parameters": []
-    },
-    "api_mtg_supertypes_delete_item": {
-        "path": "\/api\/mtg_supertypes\/{id}",
-        "parameters": []
-    },
-    "api_mtg_supertypes_put_item": {
-        "path": "\/api\/mtg_supertypes\/{id}",
-        "parameters": []
-    },
-    "api_mtg_supertypes_patch_item": {
-        "path": "\/api\/mtg_supertypes\/{id}",
-        "parameters": []
+        "parameters": {
+            "id": "{id}"
+        }
     },
     "api_mtg_types_get_collection": {
         "path": "\/api\/mtg_types",
         "parameters": []
     },
-    "api_mtg_types_post_collection": {
-        "path": "\/api\/mtg_types",
-        "parameters": []
-    },
     "api_mtg_types_get_item": {
         "path": "\/api\/mtg_types\/{id}",
-        "parameters": []
-    },
-    "api_mtg_types_delete_item": {
-        "path": "\/api\/mtg_types\/{id}",
-        "parameters": []
-    },
-    "api_mtg_types_put_item": {
-        "path": "\/api\/mtg_types\/{id}",
-        "parameters": []
-    },
-    "api_mtg_types_patch_item": {
-        "path": "\/api\/mtg_types\/{id}",
-        "parameters": []
+        "parameters": {
+            "id": "{id}"
+        }
     },
     "_preview_error": {
         "path": "\/_error\/{code}",
         "parameters": {
-            "code": "{code}"
+            "code": "{\\d+}"
         }
     },
     "_wdt": {

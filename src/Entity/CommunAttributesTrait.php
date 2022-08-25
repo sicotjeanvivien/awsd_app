@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 trait CommunAttributesTrait
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(["mtgCard:read:collection", "mtgCard:read:item"])]
     private $id;
 
     #[ORM\Column(type: 'datetime')]

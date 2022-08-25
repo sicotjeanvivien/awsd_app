@@ -33,8 +33,11 @@ class JsRoutingGenerateCommand extends Command
             if (!preg_match('/_profiler/', $route->getPath())) {
                 $parameters = [];
                 $jsPath = str_replace(".{_format}", "", $route->getPath());
-                foreach ($route->getRequirements() as $param => $requerement) {
-                    $parameters[$param] = "{" . $param . "}";
+                if (str_contains( $jsPath, "{id}")) {
+                    $parameters["id"] = "{id}";
+                }
+                foreach ($route->getRequirements() as $param => $requirement) {
+                    $parameters[$param] = "{" . $requirement . "}";
                 }
                 
                 $jsRouting[$key] = [

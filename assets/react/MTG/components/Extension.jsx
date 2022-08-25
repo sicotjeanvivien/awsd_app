@@ -25,5 +25,4 @@ const Extension = ({ extension, handleSelectedExtension }) => {
     </div>
 
 }
-
 export default Extension;
