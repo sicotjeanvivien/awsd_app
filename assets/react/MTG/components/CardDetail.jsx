@@ -10,7 +10,7 @@ const CardDetail = ({ cardDetail, handleClickEmptyCardDetail }) => {
 
     const handleClickSelectedLanguage = useCallback((e) => {
         e.preventDefault();
-        texts.map((value, key) => {
+        texts.length && texts.map((value, key) => {
             if (value.language == e.currentTarget.dataset.language) {
                 setTextSelected(value);
             }
@@ -34,7 +34,7 @@ const CardDetail = ({ cardDetail, handleClickEmptyCardDetail }) => {
             <div className="col-12">
                 <ul className="nav nav-tabs">
                     {
-                        texts.map((value, key) => {
+                        texts && texts.map((value, key) => {
                             return <li className="nav-item" key={key} >
                                 <a type="button" href="#" className="nav-link" data-language={value.language} onClick={(e) => handleClickSelectedLanguage(e)} >{value.language.slice(0, 2)}</a>
                             </li>
