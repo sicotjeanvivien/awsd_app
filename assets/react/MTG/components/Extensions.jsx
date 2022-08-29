@@ -20,7 +20,10 @@ const Extensions = ({ extensions, handleSelectedExtension }) => {
         </div>
         {
             extensions.map((value, key) => {
-                if (value.code.match(searchName)) {   
+                console.log("boo", value);
+
+                let test = /^ Kami $/i
+                if (value.code.match(searchName) || value.name.toLowerCase().match(searchName.toLowerCase())) {
                     return <Extension key={key} extension={value} handleSelectedExtension={handleSelectedExtension} />
                 }
             })

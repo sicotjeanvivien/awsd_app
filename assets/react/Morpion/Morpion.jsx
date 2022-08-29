@@ -14,10 +14,13 @@ const MorpionGame = () => {
 		{ "index": 7, "value": "" },
 		{ "index": 8, "value": "" },
 	]
-	let [player, setPlayer] = useState("X");
-	let [gameFinished, setGameFinished] = useState(false);
-	let [board, setBoard] = useState(boardStart);
-	let [gameStatus, setGameStatus] = useState("Tour du joueur " + player);
+	const [player, setPlayer] = useState("X");
+	const [playerStart, setPlayerStart] = useState("O");
+	const [gameFinished, setGameFinished] = useState(false);
+	const [board, setBoard] = useState(boardStart);
+	const [gameStatus, setGameStatus] = useState("Tour du joueur " + player);
+	const [scorePlayerX, setScorePlayerX] = useState(0);
+	const [scorePlayerO, setScorePlayerO] = useState(0);
 
 	const clickCase = useCallback((e) => {
 		if (
@@ -44,6 +47,17 @@ const MorpionGame = () => {
 
 	const displayedTurn = (newPlayer, newBoard) => {
 		if (checkWinner()) {
+			switch (player) {
+				case "X":
+					setScorePlayerX(scorePlayerX + 1);
+					break;
+				case "O":
+					console.log("porut");
+					setScorePlayerO(scorePlayerO + 1);
+					break;
+			}
+			playerStart === "X" ? setPlayerStart("O") : setPlayerStart("X");
+			setPlayer(playerStart);
 			setGameStatus("Victoire du joueur " + player);
 			setGameFinished(true);
 		} else if (!checkCellIfVoid(newBoard)) {
@@ -52,7 +66,7 @@ const MorpionGame = () => {
 			setGameStatus("Tour du joueur " + newPlayer);
 			setPlayer(newPlayer);
 		}
-	}
+	};
 
 	const checkWinner = () => {
 		const winningPattern = [
@@ -71,23 +85,38 @@ const MorpionGame = () => {
 			})
 
 		})
-	}
+	};
 
 	const checkCellIfVoid = (newBoard) => {
 		return newBoard.find((cell) => {
 			return cell.value === "";
 		})
-	}
+	};
+
+	const handleClickNewGame = useCallback((e) => {
+		e.preventDefault();
+		setBoard(boardStart);
+		setGameFinished(false);
+		setGameStatus("Tour du joueur " + player);
+	});
+
+	const handleClickResetGame = useCallback((e) => {
+		e.preventDefault();
+		handleClickNewGame(e);
+		setPlayerStart("O");
+		setPlayer("X");
+		setScorePlayerO(0);
+		setScorePlayerX(0);
+		setGameStatus("Tour du joueur " + "X");
+	});
 
 	return (
-		<div className="row">
+		<div className="row mb-2">
 			<div className="col-12 ">
-				<h3 className="text-center">Morpion</h3>
+				<h1 className="text-center mt-2 mb-2">Morpion</h1>
 			</div>
-			<div className="col-12 ">
-				<h3 className="text-center">{gameStatus}</h3>
-			</div>
-			<div className="col-12 p-0 text-center">
+			<div className="col-8 p-0 text-center">
+			<h3 className="text-center">{gameStatus}</h3>
 				<div className="jeu">
 					{
 						board.map((value, key) => {
@@ -96,6 +125,16 @@ const MorpionGame = () => {
 							)
 						})
 					}
+				</div>
+			</div>
+			<div className="col-4 ">
+				<div className='d-flex justify-content-between'>
+					<button type='button' className='btn btn-info' onClick={(e) => handleClickNewGame(e)} >Nouvelle partie</button>
+					<button type='button' className='btn btn-info' onClick={(e) => handleClickResetGame(e)} >Nouveau jeux</button>
+				</div>
+				<div>
+					<p><span className='fw-bold'> Score Joueur X : </span>{scorePlayerX} point</p>
+					<p><span className='fw-bold'> Score Joueur O : </span>{scorePlayerO} point</p>
 				</div>
 			</div>
 			<div className="col-2">

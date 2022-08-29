@@ -12,7 +12,6 @@ class MTGController extends AbstractController
     public function index(): Response
     {
         return $this->render('mtg/index.html.twig', [
-            'controller_name' => 'MTGController',
         ]);
     }
 }

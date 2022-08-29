@@ -124,7 +124,6 @@ const Connexion = () => {
         <button onClick={dropDownShow} className="btn btn-outline-light">{user.username}</button>
         <div id="myDropdown" className="dropdown-content">
           <a href={routing.app_profil.path}>Profil</a>
-          <a href={routing.app_mtg.path}>MTG</a>
           <a href={routing.security_logout.path}>Déconnexion</a>
         </div>
       </div>
