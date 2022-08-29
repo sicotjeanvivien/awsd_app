@@ -52,7 +52,6 @@ const MorpionGame = () => {
 					setScorePlayerX(scorePlayerX + 1);
 					break;
 				case "O":
-					console.log("porut");
 					setScorePlayerO(scorePlayerO + 1);
 					break;
 			}

@@ -3,7 +3,6 @@
 namespace App\Entity\MTG;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\OpenApi\Options;
 use App\Entity\CommunAttributesTrait;
 use App\Repository\MTG\MtgSetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     paginationEnabled: false,
     collectionOperations: [
-        "get"
+        "get" => ['normalization_context' => ["groups" => ["mtgSet:read:collection"]]]
     ],
     itemOperations: [
         "get"
@@ -28,16 +27,19 @@ class MtgSet
     use CommunAttributesTrait;
 
     #[ORM\Column(type: 'string', length: 25)]
+    #[Groups(["mtgSet:read:collection"])]
     private $code;
-
+    
     #[ORM\Column(type: 'string', length: 150)]
-    #[Groups(["mtgCard:read:item"])]
+    #[Groups(["mtgCard:read:item", "mtgSet:read:collection"])]
     private $name;
-
+    
     #[ORM\Column(type: 'date')]
+    #[Groups(["mtgSet:read:collection"])]
     private $releaseDate;
-
+    
     #[ORM\Column(type: 'boolean', nullable: true)]
+    #[Groups(["mtgSet:read:collection"])]
     private $onlineOnly;
 
     #[ORM\OneToMany(mappedBy: 'mtgSet', targetEntity: MtgCard::class)]

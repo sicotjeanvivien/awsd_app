@@ -11,7 +11,7 @@ import Error from "./components/Error";
 const MTG = () => {
 
     const [extensions, setExtensions] = useState({});
-    const [extensionSelected, setExtensionSelected] = useState("");
+    const [extensionSelected, setExtensionSelected] = useState({});
     const [cards, setCards] = useState({});
     const [cardDetail, setCardDetail] = useState({});
     const [pageCards, setPageCards] = useState(1);
@@ -23,7 +23,7 @@ const MTG = () => {
     }, []);
     useEffect(() => {
         setCards({});
-        if (extensionSelected.length) {
+        if (extensionSelected.code && extensionSelected.code.length) {
             loadCards();
         }
     }, [extensionSelected, setExtensionSelected, pageCards, setPageCards])
@@ -39,7 +39,7 @@ const MTG = () => {
         });
     }
     const loadCards = () => {
-        MTGApi.getCards(extensionSelected, pageCards).then(res => {
+        MTGApi.getCards(extensionSelected.code, pageCards).then(res => {
             if (typeof res === "object" && !res.hasOwnProperty("error")) {
                 let urltest = new URL(res["hydra:view"]["hydra:last"], location.origin);
                 setLastPageCards(urltest.searchParams.get("page"));
@@ -58,14 +58,18 @@ const MTG = () => {
     // Action
     const handleSelectedExtension = useCallback((e) => {
         e.preventDefault();
-        setExtensionSelected(e.currentTarget.dataset.extension_code);
+        extensions.map((value, key) => {
+            if (value.code === e.currentTarget.dataset.extension_code) {
+                setExtensionSelected(value);
+            }
+        })
     });
     const handleClickEmptyData = useCallback((e) => {
         e.preventDefault();
         setCards({});
         setCardDetail({});
         setPageCards(1);
-        setExtensionSelected("");
+        setExtensionSelected({});
     });
     const handleClickEmptyCardDetail = useCallback((e) => {
         setCardDetail({});
@@ -93,6 +97,7 @@ const MTG = () => {
     if (cards.length && !cardDetail.id) {
         renderView = (
             <Cards
+                extensionSelected={extensionSelected}
                 cards={cards}
                 pageCards={pageCards}
                 lastPageCards={lastPageCards}
