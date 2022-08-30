@@ -23,6 +23,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('AppReact', './assets/react/App/App.jsx')
     .addEntry('Morpion', './assets/react/Morpion/Morpion.jsx')
+    .addEntry('CandyCrush', './assets/react/CandyCrush/CandyCrush.jsx')
     .addEntry('Home', './assets/react/Home/Home.jsx')
     .addEntry('RosetteTwitch', './assets/react/RosetteTwitch/RosetteTwitch.jsx')
     .addEntry('Profil', './assets/react/Profil/Profil.jsx')

@@ -32,4 +32,10 @@ class GamesController extends AbstractController
     {
         return $this->render('/games/morpion/index.html.twig');
     }
+ 
+    #[Route('/candy_crush', name: 'game_candy_crush', methods:["GET"])]
+    public function candy_crush()
+    {
+        return $this->render('/games/candy_crush/index.html.twig');
+    }
 }
