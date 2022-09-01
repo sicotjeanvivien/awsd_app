@@ -1,17 +1,16 @@
-<div class="col-12 mt-3 mb-3">
-    <div class="card text-bg-secondary">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <Image src={{ asset(game.image)}} class="img-fluid rounded-start" alt="..." />
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">{{game.name}} </h5>
-                    <p class="card-text">{{game.rules}}</p>
-                    <div class="d-flex justify-content-end">
-                        <a href={{path(game.link)}} class="btn btn-info">Jouer</a>
-                    </div>
-                </div>
+<div class="col mt-5">
+    <div class="card card h-100">
+        <div class="d-flex justify-content-center">
+            <Image src={{ asset(game.image)}} class="img-fluid rounded-start max-img-custom" alt="..." />
+
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{game.name}} </h5>
+            <p class="card-text">{{game.rules}}</p>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-end">
+                <a href={{path(game.link)}} class="btn btn-info">Jouer</a>
             </div>
         </div>
     </div>

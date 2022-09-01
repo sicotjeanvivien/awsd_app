@@ -21,6 +21,11 @@ main {
   min-height: 75vh !important;
 }
 
+.max-img-custom{
+  max-width: 300px;
+  max-height: 300px;
+}
+
 @import 'header';
 @import 'footer';
 

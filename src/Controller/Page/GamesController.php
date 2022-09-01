@@ -19,6 +19,12 @@ class GamesController extends AbstractController
                 "rules" => "Le premier joueur a aligner 3 symboles identiques gagne la partie. Attention, le joueur qui débute est toujours avantagé pour gagner. Pensez donc à alterner!",
                 "image" => "/img/morpion_img.png",
                 "link" => "game_morpion"
+            ],
+            [
+                "name" => "Cabdy-Crush v1",
+                "rules" => "Aligner 3 bonbons identiques pour gagner des points.",
+                "image" => "/img/candy_crush.png",
+                "link" => "game_candy_crush"
             ]
         ];
 
