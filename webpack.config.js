@@ -27,6 +27,7 @@ Encore
     .addEntry('Home', './assets/react/Home/Home.jsx')
     .addEntry('RosetteTwitch', './assets/react/RosetteTwitch/RosetteTwitch.jsx')
     .addEntry('Profil', './assets/react/Profil/Profil.jsx')
+    .addEntry('Organisator', './assets/react/Organisator/Organisator.jsx')
     .addEntry('MTG', './assets/react/MTG/MTG.jsx')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

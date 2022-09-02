@@ -12,7 +12,6 @@ class GamesController extends AbstractController
     #[Route('', name: 'app_games', methods:["GET"])]
     public function index(): Response
     {
-
         $games = [
             [
                 "name" => "Morpion",
