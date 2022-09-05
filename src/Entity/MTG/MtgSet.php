@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MtgSetRepository::class)]
+#[HasLifecycleCallbacks]
 #[ApiResource(
     paginationEnabled: false,
     collectionOperations: [
@@ -21,7 +22,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
         "get"
     ]
 )]
-#[HasLifecycleCallbacks]
 class MtgSet
 {
     use CommunAttributesTrait;

@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MtgCardRepository::class)]
+#[HasLifecycleCallbacks]
 #[
     ApiResource(
         paginationEnabled: true,
@@ -32,7 +33,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ),
     ApiFilter(SearchFilter::class, properties: ['id' => 'exact', "mtgSet.code" => "exact"])
 ]
-#[HasLifecycleCallbacks]
 class MtgCard
 {
     use CommunAttributesTrait;

@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 #[ORM\Entity(repositoryClass: MtgColorRepository::class)]
+#[HasLifecycleCallbacks]
 #[ApiResource(
     collectionOperations: [
         "get"
@@ -20,7 +21,6 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
         "get"
     ]
 )]
-#[HasLifecycleCallbacks]
 class MtgColor
 {
    use CommunAttributesTrait;

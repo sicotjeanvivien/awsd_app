@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MtgSupertypeRepository::class)]
+#[HasLifecycleCallbacks]
 #[ApiResource(
     collectionOperations: [
         "get"
@@ -20,7 +21,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
         "get"
     ]
 )]
-#[HasLifecycleCallbacks]
 class MtgSupertype
 {
 

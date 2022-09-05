@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220822102416 extends AbstractMigration
+final class Version20220905114754 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -33,7 +33,10 @@ final class Version20220822102416 extends AbstractMigration
         $this->addSql('CREATE TABLE mtg_subtype (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(150) NOT NULL, created DATETIME NOT NULL, updated DATETIME on update CURRENT_TIMESTAMP, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE mtg_supertype (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(150) NOT NULL, created DATETIME NOT NULL, updated DATETIME on update CURRENT_TIMESTAMP, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE mtg_type (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(150) NOT NULL, created DATETIME NOT NULL, updated DATETIME on update CURRENT_TIMESTAMP, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', email VARCHAR(180) NOT NULL, password VARCHAR(255) NOT NULL, auth_token VARCHAR(255) DEFAULT NULL, auth_token_generation_date DATETIME DEFAULT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE tchat_conversation (id INT AUTO_INCREMENT NOT NULL, created DATETIME NOT NULL, updated DATETIME on update CURRENT_TIMESTAMP, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE tchat_conversation_user (tchat_conversation_id INT NOT NULL, user_id INT NOT NULL, INDEX IDX_6344C05F1E59B9B9 (tchat_conversation_id), INDEX IDX_6344C05FA76ED395 (user_id), PRIMARY KEY(tchat_conversation_id, user_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE tchat_message (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, tchat_conversation_id INT DEFAULT NULL, content LONGTEXT DEFAULT NULL, created DATETIME NOT NULL, updated DATETIME on update CURRENT_TIMESTAMP, INDEX IDX_F45F6AE9A76ED395 (user_id), INDEX IDX_F45F6AE91E59B9B9 (tchat_conversation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', email VARCHAR(180) NOT NULL, password VARCHAR(255) NOT NULL, auth_token VARCHAR(255) DEFAULT NULL, auth_token_generation_date DATETIME DEFAULT NULL, created DATETIME NOT NULL, updated DATETIME on update CURRENT_TIMESTAMP, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE mtg_card ADD CONSTRAINT FK_AE09BE0CC456E928 FOREIGN KEY (mtg_set_id) REFERENCES mtg_set (id)');
         $this->addSql('ALTER TABLE mtg_card ADD CONSTRAINT FK_AE09BE0C456A798A FOREIGN KEY (mtg_rarity_id) REFERENCES mtg_rarity (id)');
         $this->addSql('ALTER TABLE mtg_card ADD CONSTRAINT FK_AE09BE0C1890001 FOREIGN KEY (mtg_artist_id) REFERENCES mtg_artist (id)');
@@ -46,6 +49,10 @@ final class Version20220822102416 extends AbstractMigration
         $this->addSql('ALTER TABLE mtg_card_mtg_mana_cost ADD CONSTRAINT FK_9C8898686CC10768 FOREIGN KEY (mtg_card_id) REFERENCES mtg_card (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE mtg_card_mtg_mana_cost ADD CONSTRAINT FK_9C889868383EC2B8 FOREIGN KEY (mtg_mana_cost_id) REFERENCES mtg_mana_cost (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE mtg_mana_cost ADD CONSTRAINT FK_7A7A263C7ADA1FB5 FOREIGN KEY (color_id) REFERENCES mtg_color (id)');
+        $this->addSql('ALTER TABLE tchat_conversation_user ADD CONSTRAINT FK_6344C05F1E59B9B9 FOREIGN KEY (tchat_conversation_id) REFERENCES tchat_conversation (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE tchat_conversation_user ADD CONSTRAINT FK_6344C05FA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE tchat_message ADD CONSTRAINT FK_F45F6AE9A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE tchat_message ADD CONSTRAINT FK_F45F6AE91E59B9B9 FOREIGN KEY (tchat_conversation_id) REFERENCES tchat_conversation (id)');
     }
 
     public function down(Schema $schema): void
@@ -63,6 +70,10 @@ final class Version20220822102416 extends AbstractMigration
         $this->addSql('ALTER TABLE mtg_card_mtg_subtype DROP FOREIGN KEY FK_F55F60A44AF970E8');
         $this->addSql('ALTER TABLE mtg_card_mtg_supertype DROP FOREIGN KEY FK_1A2B3BF1D33D52F');
         $this->addSql('ALTER TABLE mtg_card_mtg_type DROP FOREIGN KEY FK_89C5365AE34111DB');
+        $this->addSql('ALTER TABLE tchat_conversation_user DROP FOREIGN KEY FK_6344C05F1E59B9B9');
+        $this->addSql('ALTER TABLE tchat_message DROP FOREIGN KEY FK_F45F6AE91E59B9B9');
+        $this->addSql('ALTER TABLE tchat_conversation_user DROP FOREIGN KEY FK_6344C05FA76ED395');
+        $this->addSql('ALTER TABLE tchat_message DROP FOREIGN KEY FK_F45F6AE9A76ED395');
         $this->addSql('DROP TABLE mtg_artist');
         $this->addSql('DROP TABLE mtg_card');
         $this->addSql('DROP TABLE mtg_card_mtg_type');
@@ -76,6 +87,9 @@ final class Version20220822102416 extends AbstractMigration
         $this->addSql('DROP TABLE mtg_subtype');
         $this->addSql('DROP TABLE mtg_supertype');
         $this->addSql('DROP TABLE mtg_type');
+        $this->addSql('DROP TABLE tchat_conversation');
+        $this->addSql('DROP TABLE tchat_conversation_user');
+        $this->addSql('DROP TABLE tchat_message');
         $this->addSql('DROP TABLE user');
     }
 }

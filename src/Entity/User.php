@@ -3,19 +3,24 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Tchat\TchatConversation;
+use App\Entity\Tchat\TchatMessage;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[HasLifecycleCallbacks]
+#[ApiResource()]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+
+    use CommunAttributesTrait;
 
     #[ORM\Column(length: 180, unique: true)]
     private ?string $username = null;
@@ -38,9 +43,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $authTokenGenerationDate = null;
 
-    public function getId(): ?int
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: TchatMessage::class)]
+    private Collection $tchatMessages;
+
+    #[ORM\ManyToMany(targetEntity: TchatConversation::class, mappedBy: 'users')]
+    private Collection $tchatConversations;
+
+    public function __construct()
     {
-        return $this->id;
+        $this->tchatMessages = new ArrayCollection();
+        $this->tchatConversations = new ArrayCollection();
     }
 
     public function getUsername(): ?string
@@ -140,6 +152,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAuthTokenGenerationDate(?\DateTimeInterface $authTokenGenerationDate): self
     {
         $this->authTokenGenerationDate = $authTokenGenerationDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TchatMessages>
+     */
+    public function getTchatMessages(): Collection
+    {
+        return $this->tchatMessages;
+    }
+
+    public function addTchatMessage(TchatMessage $tchatMessage): self
+    {
+        if (!$this->tchatMessages->contains($tchatMessage)) {
+            $this->tchatMessages->add($tchatMessage);
+            $tchatMessage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTchatMessage(TchatMessage $tchatMessage): self
+    {
+        if ($this->tchatMessages->removeElement($tchatMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($tchatMessage->getUser() === $this) {
+                $tchatMessage->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TchatConversation>
+     */
+    public function getTchatConversations(): Collection
+    {
+        return $this->tchatConversations;
+    }
+
+    public function addTchatConversation(TchatConversation $tchatConversation): self
+    {
+        if (!$this->tchatConversations->contains($tchatConversation)) {
+            $this->tchatConversations->add($tchatConversation);
+            $tchatConversation->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTchatConversation(TchatConversation $tchatConversation): self
+    {
+        if ($this->tchatConversations->removeElement($tchatConversation)) {
+            $tchatConversation->removeUser($this);
+        }
 
         return $this;
     }

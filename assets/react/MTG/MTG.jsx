@@ -86,7 +86,7 @@ const MTG = () => {
     // View
 
     let renderView = <Spinner />;
-    if (extensions.length && !extensionSelected.length) {
+    if (extensions.length && !extensionSelected.code) {
         renderView = (
             <Extensions
                 extensions={extensions}
