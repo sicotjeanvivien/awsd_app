@@ -14,20 +14,30 @@ class UserFixtures extends Fixture
     }
     public function load(ObjectManager $manager): void
     {
-        $user =
+        $users =
             [
-                'username' => 'Malgol',
-                'roles' => '["ROLE_USER"]',
-                'email' => 'amontekalarmalgol@gmail.com',
-                'password' => '$2y$13$D6Ojf57CDHmD5Xz.12iSDu1IKtUQBSH9YLV4i6NxkNEtmG6AAfxqy'
+                [
+                    'username' => 'Malgol',
+                    'roles' => '["ROLE_USER"]',
+                    'email' => 'amontekalarmalgol@gmail.com',
+                    'password' => '$2y$13$D6Ojf57CDHmD5Xz.12iSDu1IKtUQBSH9YLV4i6NxkNEtmG6AAfxqy'
+                ],
+                [
+                    'username' => 'BotTchat',
+                    'roles' => '["ROLE_USER"]',
+                    'email' => 'bot@gmail.com',
+                    'password' => "lol"
+                ]
             ];
 
-        $userNew = new User();
-        $userNew
-            ->setUsername($user["username"])
-            ->setEmail($user["email"])
-            ->setPassword($user["password"])
-            ->setRoles(json_decode($user["roles"]));
-        $this->userRepository->add($userNew, true);
+        foreach ($users as $key => $user) {
+            $userNew = new User();
+            $userNew
+                ->setUsername($user["username"])
+                ->setEmail($user["email"])
+                ->setPassword($user["password"])
+                ->setRoles(json_decode($user["roles"]));
+            $this->userRepository->add($userNew, true);
+        }
     }
 }

@@ -18,7 +18,7 @@ class TchatMessageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, TchatMessages::class);
+        parent::__construct($registry, TchatMessage::class);
     }
 
     public function add(TchatMessage $entity, bool $flush = false): void

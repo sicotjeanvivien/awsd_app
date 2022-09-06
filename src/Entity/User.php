@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[HasLifecycleCallbacks]
@@ -23,6 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     use CommunAttributesTrait;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(["tchatConversation:read:collection"])]
     private ?string $username = null;
 
     #[ORM\Column]

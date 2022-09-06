@@ -11,7 +11,10 @@ trait CommunAttributesTrait
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(["mtgCard:read:collection", "mtgCard:read:item"])]
+    #[Groups([
+        "mtgCard:read:collection", "mtgCard:read:item",
+        "tchatConversation:read:collection"
+        ])]
     private $id;
 
     #[ORM\Column(type: 'datetime')]

@@ -22,4 +22,8 @@ export default class TchatApi {
         });
     };
 
+    static async loadMessages(conversation_id){
+        console.log(conversation_id);
+    }
+
 }

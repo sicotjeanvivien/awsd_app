@@ -10,10 +10,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TchatConversationRepository::class)]
 #[HasLifecycleCallbacks]
-#[ApiResource]
+#[ApiResource(
+    collectionOperations: [
+        "get" => [
+            'normalization_context' => ["groups" => ["tchatConversation:read:collection"]]
+        ],
+    ],
+)]
 class TchatConversation
 {
   
@@ -23,6 +30,7 @@ class TchatConversation
     private Collection $messages;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'tchatConversations')]
+    #[Groups(["tchatConversation:read:collection"])]
     private Collection $users;
 
     public function __construct()
