@@ -61,7 +61,7 @@ const Connexion = () => {
       Security.signin(data).then(res => {
         setSigninFormMessage(res.message);
         setSigninFormCSS("alert-danger");
-        if (res.error) { 
+        if (res.error) {
           login(e);
           setSigninFormCSS("alert-success");
         };
@@ -104,6 +104,7 @@ const Connexion = () => {
     if (typeof res === "object" && res.hasOwnProperty("token") && res.token.length) {
       setHiddenLoginButton(true);
       handleClickHidden();
+      window.awsdData = { "userConnected": res };
       setUser(res);
     }
   }

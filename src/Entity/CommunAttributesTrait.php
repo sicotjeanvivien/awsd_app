@@ -12,6 +12,7 @@ trait CommunAttributesTrait
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     #[Groups([
+        "tchatConversation:read:collection",
         "mtgCard:read:collection", "mtgCard:read:item",
         "tchatConversation:read:collection"
         ])]

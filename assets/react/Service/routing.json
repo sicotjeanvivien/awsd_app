@@ -119,24 +119,6 @@
             "id": "{id}"
         }
     },
-    "api_tchat_conversations_delete_item": {
-        "path": "\/api\/tchat_conversations\/{id}",
-        "parameters": {
-            "id": "{id}"
-        }
-    },
-    "api_tchat_conversations_put_item": {
-        "path": "\/api\/tchat_conversations\/{id}",
-        "parameters": {
-            "id": "{id}"
-        }
-    },
-    "api_tchat_conversations_patch_item": {
-        "path": "\/api\/tchat_conversations\/{id}",
-        "parameters": {
-            "id": "{id}"
-        }
-    },
     "api_tchat_messages_get_collection": {
         "path": "\/api\/tchat_messages",
         "parameters": []
@@ -165,6 +147,38 @@
     },
     "api_tchat_messages_patch_item": {
         "path": "\/api\/tchat_messages\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
+    "api_users_get_collection": {
+        "path": "\/api\/users",
+        "parameters": []
+    },
+    "api_users_post_collection": {
+        "path": "\/api\/users",
+        "parameters": []
+    },
+    "api_users_get_item": {
+        "path": "\/api\/users\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
+    "api_users_delete_item": {
+        "path": "\/api\/users\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
+    "api_users_put_item": {
+        "path": "\/api\/users\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
+    "api_users_patch_item": {
+        "path": "\/api\/users\/{id}",
         "parameters": {
             "id": "{id}"
         }

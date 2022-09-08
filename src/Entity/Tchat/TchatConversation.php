@@ -2,7 +2,9 @@
 
 namespace App\Entity\Tchat;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Entity\CommunAttributesTrait;
 use App\Entity\User;
 use App\Repository\Tchat\TchatConversationRepository;
@@ -14,16 +16,24 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TchatConversationRepository::class)]
 #[HasLifecycleCallbacks]
-#[ApiResource(
-    collectionOperations: [
-        "get" => [
-            'normalization_context' => ["groups" => ["tchatConversation:read:collection"]]
+#[
+    ApiResource(
+        attributes: ["security" => "is_granted('ROLE_USER')"],
+        collectionOperations: [
+            "get" => [
+                'normalization_context' => ["groups" => ["tchatConversation:read:collection"]]
+            ],
+            "post"
         ],
-    ],
-)]
+        itemOperations: [
+            "get"
+        ]
+    ),
+    ApiFilter(SearchFilter::class, properties: ['id' => 'exact', "users.username" => "exact"])
+]
 class TchatConversation
 {
-  
+
     use CommunAttributesTrait;
 
     #[ORM\OneToMany(mappedBy: 'tchatConversation', targetEntity: TchatMessage::class)]

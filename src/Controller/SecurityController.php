@@ -49,6 +49,7 @@ class SecurityController extends AbstractController
     {
         if (empty($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY'))) {
             return $this->json([
+                'id'=> $this->getUser()->getId(),
                 'username'  => $this->getUser()->getUserIdentifier(),
                 'token' => $this->securityService->genaratedAuthToken($this->getUser())
             ]);

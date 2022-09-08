@@ -1,31 +1,23 @@
 import React from "react";
 
-const ConversationList = ({ conversations, handClickLoadMessages }) => {
+const ConversationList = ({ conversations, handClickJoinConversation }) => {
 
-    let renderViewConversation = conversations.map((value, key) => {
+    return conversations.map((value, key) => {
         let nameConversation = "";
         value.users.forEach(element => {
             nameConversation += element.username + " ";
         })
         return (
-            <a href="#" type="button" key={key} data-conversation_id={value.id} onClick={e => handClickLoadMessages(e)}>
-                <div>
+            <div className="text-bg-light border" key={key}
+                data-conversation_id={value.id}
+                onClick={e => handClickJoinConversation(e)}
+            >
+                <a href="#" type="button" >
                     {value.id} {nameConversation}
-                </div>
-            </a>
+                </a>
+            </div>
         )
     })
-
-    return (
-        <>
-            <div className="col-4">
-                {renderViewConversation}
-            </div>
-            <div className="col-8">
-                message
-            </div>
-        </>
-    )
 }
 
 export default ConversationList;

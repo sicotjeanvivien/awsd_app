@@ -2,7 +2,9 @@
 
 namespace App\Entity\Tchat;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Entity\CommunAttributesTrait;
 use App\Entity\User;
 use App\Repository\Tchat\TchatMessageRepository;
@@ -12,7 +14,8 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 #[ORM\Entity(repositoryClass: TchatMessageRepository::class)]
 #[HasLifecycleCallbacks]
-#[ApiResource]
+#[ApiResource(),
+    ApiFilter(SearchFilter::class,  properties: ['id' => 'exact', "tchatConversation.id" => "exact"])]
 class TchatMessage
 {
 
