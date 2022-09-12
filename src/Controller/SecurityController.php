@@ -10,6 +10,7 @@ use App\Service\Entity\UserService;
 use App\Service\SecurityService;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 #[Route("/security")]
@@ -49,9 +50,14 @@ class SecurityController extends AbstractController
     {
         if (empty($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY'))) {
             return $this->json([
-                'id'=> $this->getUser()->getId(),
+                'id' => $this->getUser()->getId(),
                 'username'  => $this->getUser()->getUserIdentifier(),
-                'token' => $this->securityService->genaratedAuthToken($this->getUser())
+                'token' => $this->securityService->genaratedAuthToken($this->getUser()),
+                '@id' => $this->generateUrl(
+                    "api_users_get_item",
+                    ["id" => $this->getUser()->getId()],
+                    UrlGeneratorInterface::ABSOLUTE_PATH
+                )
             ]);
         }
     }

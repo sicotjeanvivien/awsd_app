@@ -17,14 +17,23 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[HasLifecycleCallbacks]
-#[ApiResource()]
+#[ApiResource(
+    collectionOperations: [
+        "get" => [
+            'normalization_context' => ["groups" => ["user:read:collection"]]
+        ]
+    ],
+    itemOperations:[
+        "get"
+    ]
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
     use CommunAttributesTrait;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(["tchatConversation:read:collection"])]
+    #[Groups(["tchatConversation:read:collection", "tchatMessages:read:collection", "user:read:collection"])]
     private ?string $username = null;
 
     #[ORM\Column]
@@ -214,5 +223,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 }

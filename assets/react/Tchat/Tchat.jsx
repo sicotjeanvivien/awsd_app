@@ -17,6 +17,7 @@ const Tchat = () => {
   const [conversationSelected, setConversationSelected] = useState("");
 
   const [showChat, setShowChat] = useState(false);
+  const [showconversationList, setShowconversationList] = useState(false);
   const [showNewConversation, setShowNewConversation] = useState(false);
 
   useEffect(() => {
@@ -30,16 +31,26 @@ const Tchat = () => {
 
   // API
   const loadConversations = (username) => {
+
+    setShowconversationList(false)
     TchatApi.loadConversations(username).then((res) => {
       setConversation(res["hydra:member"]);
+      setShowconversationList(true)
     });
   };
+  const addConversation = (conversationData) => {
+    console.log("start add converstion");
+    TchatApi.addConversation(conversationData).then(res => {
+        console.log(res);
+        loadConversations(userConnected.username);
+        console.log(res.id);
+        handClickJoinConversation(res.id + '');
+    });
+};
 
 
   // Action 
-  const handClickJoinConversation = useCallback(async (e) => {
-    e.preventDefault();
-    let room = e.currentTarget.dataset.conversation_id;
+  const handClickJoinConversation = useCallback(async (room) => {
     let userConnected = window.awsdData.userConnected;
     if (userConnected !== "" && room !== "") {
 
@@ -55,25 +66,16 @@ const Tchat = () => {
     setShowChat(false);
     setShowNewConversation(true);
   });
-  const handClickCreateNewConversation = useCallback((e)=>{
-    e.preventDefault();
-    TchatApi.addConversation(data).then(res => {
-      setConversation(res["hydra:member"]);
-    });
-
-  })
 
   return (
     <div className="App row mt-5">
-      <div className="col-12 mb-3">
-        <button type="button" className="btn rounded-0 btn-info"
+      <div className="col-4">
+        <button type="button" className="btn rounded-0 btn-info mb-3"
           onClick={(e) => handClickNewConverstion(e)}
         >
           Nouvelle Conversation</button>
-      </div>
-      <div className="col-4">
         {
-          conversation.length ?
+          showconversationList ?
             <ConversationList conversations={conversation}
               handClickJoinConversation={handClickJoinConversation}
             />
@@ -92,7 +94,7 @@ const Tchat = () => {
         )}
         {
           showNewConversation && (
-            <Newconversation />
+            <Newconversation  addConversation={addConversation} userConnected={userConnected} />
           )
         }
       </div>

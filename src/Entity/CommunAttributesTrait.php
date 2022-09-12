@@ -12,19 +12,22 @@ trait CommunAttributesTrait
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     #[Groups([
-        "tchatConversation:read:collection",
         "mtgCard:read:collection", "mtgCard:read:item",
-        "tchatConversation:read:collection"
-        ])]
+        "tchatConversation:read:collection",
+        "tchatMessages:read:collection",
+        "user:read:collection"
+    ])]
     private $id;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(["tchatMessages:read:collection"])]
     protected $created;
 
     #[ORM\Column(
         type: 'datetime',
         columnDefinition: "DATETIME on update CURRENT_TIMESTAMP",
     )]
+    #[Groups(["tchatMessages:read:collection"])]
     protected $updated;
 
     public function getId(): ?int
@@ -64,7 +67,7 @@ trait CommunAttributesTrait
         $this->created = $now;
         $this->updated = $now;
     }
-    
+
     #[ORM\PreUpdate]
     public function onPreUpdate()
     {

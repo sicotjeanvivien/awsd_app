@@ -11,20 +11,32 @@ use App\Repository\Tchat\TchatMessageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TchatMessageRepository::class)]
 #[HasLifecycleCallbacks]
-#[ApiResource(),
-    ApiFilter(SearchFilter::class,  properties: ['id' => 'exact', "tchatConversation.id" => "exact"])]
+#[
+    ApiResource(
+        collectionOperations: [
+            "get" => [
+                'normalization_context' => ["groups" => ["tchatMessages:read:collection"]]
+            ],
+            "post"
+        ],
+    ),
+    ApiFilter(SearchFilter::class,  properties: ['id' => 'exact', "tchatConversation.id" => "exact"])
+]
 class TchatMessage
 {
 
     use CommunAttributesTrait;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(["tchatMessages:read:collection"])]
     private ?string $content = null;
 
     #[ORM\ManyToOne(inversedBy: 'tchatMessages')]
+    #[Groups(["tchatMessages:read:collection"])]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'messages')]

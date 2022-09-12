@@ -1,13 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TchatApi from "../../Service/TchatApi";
 
 const Chat = ({ socket, userConnected, room }) => {
+
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
   useEffect(() => {
     loadMessages(room);
-  }, [room])
+  }, [room]);
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setMessageList((list) => [...list, data]);
+    });
+  }, [socket]);
+
+  useEffect(()=>{
+    scrollTopDown();
+  }, [messageList])
 
   const loadMessages = (conversation_id) => {
     TchatApi.loadMessages(conversation_id).then(res => {
@@ -19,8 +30,7 @@ const Chat = ({ socket, userConnected, room }) => {
     if (currentMessage !== "") {
       const messageData = {
         room: room,
-        author: userConnected.username,
-        user_id: userConnected.id,
+        user: userConnected,
         content: currentMessage,
         created:
           new Date(Date.now()).getHours() +
@@ -30,16 +40,22 @@ const Chat = ({ socket, userConnected, room }) => {
       console.log(messageList);
       TchatApi.addMessage(messageData);
       await socket.emit("send_message", messageData);
+      console.log(messageData);
       setMessageList((list) => [...list, messageData]);
       setCurrentMessage("");
     }
   };
 
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageList((list) => [...list, data]);
+  const scrollTopDown = ()=>{
+    let windowScroll = document.querySelector(".message-container");
+    let windowSize = windowScroll.scrollHeight
+    windowScroll.scroll({
+      top: windowSize,
+      left: 100,
+      behavior: 'smooth'
     });
-  }, [socket]);
+  }
+
 
   return (
     <div className="chat-window">
@@ -53,7 +69,7 @@ const Chat = ({ socket, userConnected, room }) => {
               <div
                 key={key}
                 className="message"
-                id={userConnected.username === messageContent.author ? "you" : "other"}
+                id={userConnected.username === messageContent.user.username ? "you" : "other"}
               >
                 <div>
                   <div className="message-content">
@@ -61,7 +77,7 @@ const Chat = ({ socket, userConnected, room }) => {
                   </div>
                   <div className="message-meta">
                     <p id="time">{messageContent.created}</p>
-                    <p id="author">{messageContent.author}</p>
+                    <p id="author">{messageContent.user.username}</p>
                   </div>
                 </div>
               </div>

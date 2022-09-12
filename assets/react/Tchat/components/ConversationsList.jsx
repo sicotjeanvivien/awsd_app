@@ -2,22 +2,27 @@ import React from "react";
 
 const ConversationList = ({ conversations, handClickJoinConversation }) => {
 
-    return conversations.map((value, key) => {
-        let nameConversation = "";
-        value.users.forEach(element => {
-            nameConversation += element.username + " ";
-        })
+    return conversations.length ? conversations.map((value, key) => {
         return (
             <div className="text-bg-light border" key={key}
                 data-conversation_id={value.id}
-                onClick={e => handClickJoinConversation(e)}
+                onClick={e => handClickJoinConversation(e.currentTarget.dataset.conversation_id)}
             >
                 <a href="#" type="button" >
-                    {value.id} {nameConversation}
+                    <div>{value.id} : {value.name} </div>
+                    <p>{
+                        value.users.map((element, key) => {
+                            console.log(element);
+                            return (<span key={key} className="me-1 badge text-bg-dark">{element.username}</span>);
+                        })
+                    }
+                    </p>
                 </a>
             </div>
         )
     })
+    :
+    <div>Pas de conversation</div>
 }
 
 export default ConversationList;

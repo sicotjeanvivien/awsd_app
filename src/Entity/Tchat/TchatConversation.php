@@ -43,6 +43,10 @@ class TchatConversation
     #[Groups(["tchatConversation:read:collection"])]
     private Collection $users;
 
+    #[ORM\Column(length: 255)]
+    #[Groups(["tchatConversation:read:collection"])]
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -99,6 +103,18 @@ class TchatConversation
     public function removeUser(User $user): self
     {
         $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
