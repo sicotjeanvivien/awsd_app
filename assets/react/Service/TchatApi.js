@@ -12,6 +12,7 @@ export default class TchatApi {
 
   static connectSocket() {
     return io.connect("http://localhost:3033");
+    // return io.connect("http://localhost:3033");
   }
 
   // CONVERSATITION
