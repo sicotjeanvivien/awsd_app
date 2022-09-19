@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Organisator\OrganisatorTask;
 use App\Entity\Tchat\TchatConversation;
 use App\Entity\Tchat\TchatMessage;
 use App\Repository\UserRepository;
@@ -60,10 +61,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: TchatConversation::class, mappedBy: 'users')]
     private Collection $tchatConversations;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: OrganisatorTask::class)]
+    private Collection $organisatorTasks;
+
     public function __construct()
     {
         $this->tchatMessages = new ArrayCollection();
         $this->tchatConversations = new ArrayCollection();
+        $this->organisatorTasks = new ArrayCollection();
     }
 
     public function getUsername(): ?string
@@ -219,6 +224,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->tchatConversations->removeElement($tchatConversation)) {
             $tchatConversation->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrganisatorTask>
+     */
+    public function getOrganisatorTasks(): Collection
+    {
+        return $this->organisatorTasks;
+    }
+
+    public function addOrganisatorTask(OrganisatorTask $organisatorTask): self
+    {
+        if (!$this->organisatorTasks->contains($organisatorTask)) {
+            $this->organisatorTasks->add($organisatorTask);
+            $organisatorTask->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrganisatorTask(OrganisatorTask $organisatorTask): self
+    {
+        if ($this->organisatorTasks->removeElement($organisatorTask)) {
+            // set the owning side to null (unless already changed)
+            if ($organisatorTask->getUser() === $this) {
+                $organisatorTask->setUser(null);
+            }
         }
 
         return $this;
