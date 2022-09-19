@@ -1,4 +1,4 @@
-import routing from "../Service/routing.json";
+import routing from "../../../Service/routing.json";
 
 export default class MTGApi {
 
