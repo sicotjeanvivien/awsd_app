@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import React, { useCallback, useEffect, useState } from "react";
 
-import MTGApi from "../../Service/MTGApi";
+import MTGApi from "./Service/MTGApi";
 import Header from "../../component/Header/Header";
 import Footer from "../../component/Footer/Footer";
 

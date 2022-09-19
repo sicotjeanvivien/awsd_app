@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import TwitchApi from "../../../Service/TwitchApi";
+import TwitchApi from "../Service/TwitchApi";
 
 const SearchBar = ({handleSelectedChannel, setChannels}) => {
 

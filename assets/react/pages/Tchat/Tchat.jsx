@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import React, { useCallback, useEffect, useState } from "react";
 
-import TchatApi from "../../Service/TchatApi";
+import TchatApi from "./Service/TchatApi";
 
 import Header from "../../component/Header/Header";
 import Footer from "../../component/Footer/Footer";

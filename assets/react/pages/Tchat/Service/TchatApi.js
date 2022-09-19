@@ -1,4 +1,4 @@
-import routing from "./routing.json";
+import routing from "../../../Service/routing.json";
 import io from "socket.io-client";
 
 export default class TchatApi {
@@ -11,8 +11,8 @@ export default class TchatApi {
   };
 
   static connectSocket() {
-    // return io.connect("http://localhost:3033");
-    return io.connect("https://tchat.awsd.fr");
+    return io.connect("http://localhost:3033");
+    // return io.connect("https://tchat.awsd.fr");
   }
 
   // CONVERSATITION
