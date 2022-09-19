@@ -1,8 +1,14 @@
 import { createRoot } from "react-dom/client";
 import React, { useCallback, useEffect, useState } from "react";
+
 // Components 
+import Header from "../../component/Header/Header";
+import Footer from "../../component/Footer/Footer";
 import SearchBar from "./components/SearchBar";
+
 const RosetteTwitch = () => {
+
+	const [userConnected, setUserConnected] = useState({});
 
 	const [channelSelected, setChannelSelected] = useState();
 	const [channels, setChannels] = useState();
@@ -22,12 +28,16 @@ const RosetteTwitch = () => {
 	});
 
 	const renderViewStream = useCallback(() => {
-		
+
 	})
 
 	return (
 		<>
-			<SearchBar handleSelectedChannel={handleSelectedChannel} setChannels={findChannels} />
+			<Header userConnected={userConnected} setUserConnected={setUserConnected} />
+			<main className='container'>
+				<SearchBar handleSelectedChannel={handleSelectedChannel} setChannels={findChannels} />
+			</main>
+			<Footer />
 		</>
 	)
 }

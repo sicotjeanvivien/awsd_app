@@ -1,15 +1,20 @@
 import { createRoot } from "react-dom/client";
 import React, { useCallback, useEffect, useState } from "react";
 
-import Spinner from "../component/Spinner";
-import MTGApi from "../Service/MTGApi";
+import MTGApi from "../../Service/MTGApi";
+import Header from "../../component/Header/Header";
+import Footer from "../../component/Footer/Footer";
+
+import Spinner from "../../component/Spinner";
 import CardDetail from "./components/CardDetail";
 import Extensions from "./components/Extensions";
 import Cards from "./components/Cards";
 import Error from "./components/Error";
 
+
 const MTG = () => {
 
+    const [userConnected, setUserConnected] = useState({});
     const [extensions, setExtensions] = useState({});
     const [extensionSelected, setExtensionSelected] = useState({});
     const [cards, setCards] = useState({});
@@ -122,9 +127,13 @@ const MTG = () => {
     }
 
     return (
-        <div className="row">
-            {renderView}
-        </div>
+        <>
+            <Header userConnected={userConnected} setUserConnected={setUserConnected} />
+            <div className="row">
+                {renderView}
+            </div>
+            <Footer />
+        </>
     );
 }
 

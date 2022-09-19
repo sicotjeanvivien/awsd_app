@@ -9,6 +9,8 @@ import blank from './images/blank.png';
 
 import ScoreBoard from './components/ScoreBoard';
 import { createRoot } from 'react-dom/client';
+import Header from "../../../component/Header/Header";
+import Footer from "../../../component/Footer/Footer";
 
 const width = 8;
 const candyColors = [
@@ -21,6 +23,8 @@ const candyColors = [
 ]
 
 const CandyCrush = () => {
+
+  const [userConnected, setUserConnected] = useState({});
   const [currentColorArrangement, setCurrentColorArrangement] = useState([]);
   const [squareBeingDragged, setSquareBeingDragged] = useState(null);
   const [squareBeingReplaced, setSquareBeingReplaced] = useState(null);
@@ -31,7 +35,7 @@ const CandyCrush = () => {
       const columnOfFour = [i, i + width, i + width * 2, i + width * 3];
       const decidedColor = currentColorArrangement[i];
       const isBlank = currentColorArrangement[i] === blank;
-      
+
       if (columnOfFour.every(square => currentColorArrangement[square] === decidedColor && !isBlank)) {
         setScore(s => s + 4);
         columnOfFour.forEach(square => currentColorArrangement[square] = blank);
@@ -100,7 +104,7 @@ const CandyCrush = () => {
 
     }
   }
-// console.log(score);
+  // console.log(score);
   const onDragStart = (e) => {
     setSquareBeingDragged(e.target);
   };
@@ -166,27 +170,32 @@ const CandyCrush = () => {
   }, [checkForColumnOfFour, checkForRowOfFour, checkForColumnOfThree, checkForRowOfThree, currentColorArrangement])
 
   return (
-    <div className='app'>
-      <div className='game'>
-
-        {currentColorArrangement.map((candyColor, index) => (
-          <img
-            key={index}
-            src={candyColor}
-            alt={candyColor}
-            data-id={index}
-            draggable={true}
-            onDragStart={onDragStart}
-            onDragOver={(e) => { e.preventDefault() }}
-            onDragEnter={(e) => { e.preventDefault() }}
-            onDragLeave={(e) => { e.preventDefault() }}
-            onDrop={onDrop}
-            onDragEnd={onDragEnd}
-          />
-        ))}
-      </div>
-      <ScoreBoard score={score} />
-    </div>
+    <>
+      <Header userConnected={userConnected} setUserConnected={setUserConnected} />
+      <main className='container'>
+        <div className='app'>
+          <div className='game'>
+            {currentColorArrangement.map((candyColor, index) => (
+              <img
+                key={index}
+                src={candyColor}
+                alt={candyColor}
+                data-id={index}
+                draggable={true}
+                onDragStart={onDragStart}
+                onDragOver={(e) => { e.preventDefault() }}
+                onDragEnter={(e) => { e.preventDefault() }}
+                onDragLeave={(e) => { e.preventDefault() }}
+                onDrop={onDrop}
+                onDragEnd={onDragEnd}
+              />
+            ))}
+          </div>
+          <ScoreBoard score={score} />
+        </div>
+      </main>
+			<Footer />
+    </>
   );
 }
 
@@ -194,5 +203,5 @@ export default CandyCrush;
 
 
 const container = document.getElementById('root');
-const root = createRoot(container); 
+const root = createRoot(container);
 root.render(<CandyCrush />);

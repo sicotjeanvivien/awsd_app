@@ -28,7 +28,7 @@ class GamesController extends AbstractController
         ];
 
         return $this->render('/games/index.html.twig', [
-            'games' => $games,
+            'games' => json_encode($games, JSON_FORCE_OBJECT) ,
         ]);
     }
 

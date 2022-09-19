@@ -5,14 +5,13 @@ import routing from "../Service/routing.json";
 import LoginForm from "./form/loginForm";
 import SignInForm from "./form/signInForm";
 
-const Connexion = () => {
+const Connexion = ({userConnected, setUserConnected}) => {
 
   const [modalHidden, setModelHidden] = useState("d-none");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerified, setPasswordVerified] = useState("");
-  const [user, setUser] = useState();
   const [hiddenLoginButton, setHiddenLoginButton] = useState(false);
   const [calledFormInModal, setCalledFormInModal] = useState();
   const [signinFormMessage, setSigninFormMessage] = useState("");
@@ -104,8 +103,8 @@ const Connexion = () => {
     if (typeof res === "object" && res.hasOwnProperty("token") && res.token.length) {
       setHiddenLoginButton(true);
       handleClickHidden();
+      setUserConnected(res)
       window.awsdData = { "userConnected": res };
-      setUser(res);
     }
   }
 
@@ -122,7 +121,7 @@ const Connexion = () => {
   if (hiddenLoginButton) {
     authButton = (
       <div className="position-relative d-inline-block">
-        <button onClick={dropDownShow} className="btn btn-outline-light">{user.username}</button>
+        <button onClick={dropDownShow} className="btn btn-outline-light">{userConnected.username}</button>
         <div id="myDropdown" className="dropdown-content">
           <a href={routing.app_profil.path}>Profil</a>
           <a href={routing.app_tchat.path}>Tchat</a>
@@ -175,7 +174,7 @@ const Connexion = () => {
   }
 
   return (
-    <>
+    <div>
       {/* button */}
       <div className="d-flex align-items-center ">
         {authButton}
@@ -193,7 +192,7 @@ const Connexion = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 export default Connexion;

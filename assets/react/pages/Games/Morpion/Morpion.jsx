@@ -2,6 +2,9 @@ import { createRoot } from 'react-dom/client';
 import React, { useCallback, useEffect, useState } from "react";
 import Case from "./component/Case";
 
+import Header from "../../../component/Header/Header";
+import Footer from "../../../component/Footer/Footer";
+
 const MorpionGame = () => {
 	const boardStart = [
 		{ "index": 0, "value": "" },
@@ -14,6 +17,7 @@ const MorpionGame = () => {
 		{ "index": 7, "value": "" },
 		{ "index": 8, "value": "" },
 	]
+	const [userConnected, setUserConnected] = useState({});
 	const [player, setPlayer] = useState("X");
 	const [playerStart, setPlayerStart] = useState("O");
 	const [gameFinished, setGameFinished] = useState(false);
@@ -110,36 +114,41 @@ const MorpionGame = () => {
 	});
 
 	return (
-		<div className="row mb-2">
-			<div className="col-12 ">
-				<h1 className="text-center mt-2 mb-2">Morpion</h1>
-			</div>
-			<div className="col-8 p-0 text-center">
-			<h3 className="text-center">{gameStatus}</h3>
-				<div className="jeu">
-					{
-						board.map((value, key) => {
-							return (
-								<Case key={key} value={value} onClick={clickCase} />
-							)
-						})
-					}
+		<>
+			<Header userConnected={userConnected} setUserConnected={setUserConnected} />
+			<main className='container'>
+				<div className="row mb-2">
+					<div className="col-12 ">
+						<h1 className="text-center mt-2 mb-2">Morpion</h1>
+					</div>
+					<div className="col-8 p-0 text-center">
+						<h3 className="text-center">{gameStatus}</h3>
+						<div className="jeu">
+							{
+								board.map((value, key) => {
+									return (
+										<Case key={key} value={value} onClick={clickCase} />
+									)
+								})
+							}
+						</div>
+					</div>
+					<div className="col-4 ">
+						<div className='d-flex justify-content-between'>
+							<button type='button' className='btn btn-info' onClick={(e) => handleClickNewGame(e)} >Nouvelle partie</button>
+							<button type='button' className='btn btn-info' onClick={(e) => handleClickResetGame(e)} >Nouveau jeux</button>
+						</div>
+						<div>
+							<p><span className='fw-bold'> Score Joueur X : </span>{scorePlayerX} point</p>
+							<p><span className='fw-bold'> Score Joueur O : </span>{scorePlayerO} point</p>
+						</div>
+					</div>
+					<div className="col-2">
+					</div>
 				</div>
-			</div>
-			<div className="col-4 ">
-				<div className='d-flex justify-content-between'>
-					<button type='button' className='btn btn-info' onClick={(e) => handleClickNewGame(e)} >Nouvelle partie</button>
-					<button type='button' className='btn btn-info' onClick={(e) => handleClickResetGame(e)} >Nouveau jeux</button>
-				</div>
-				<div>
-					<p><span className='fw-bold'> Score Joueur X : </span>{scorePlayerX} point</p>
-					<p><span className='fw-bold'> Score Joueur O : </span>{scorePlayerO} point</p>
-				</div>
-			</div>
-			<div className="col-2">
-
-			</div>
-		</div>
+			</main>
+			<Footer />
+		</>
 	)
 }
 export default MorpionGame;

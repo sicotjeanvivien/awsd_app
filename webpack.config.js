@@ -22,14 +22,21 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('AppReact', './assets/react/App/App.jsx')
-    .addEntry('Morpion', './assets/react/Morpion/Morpion.jsx')
-    .addEntry('CandyCrush', './assets/react/CandyCrush/CandyCrush.jsx')
-    .addEntry('Home', './assets/react/Home/Home.jsx')
-    .addEntry('RosetteTwitch', './assets/react/RosetteTwitch/RosetteTwitch.jsx')
-    .addEntry('Profil', './assets/react/Profil/Profil.jsx')
-    .addEntry('Organisator', './assets/react/Organisator/Organisator.jsx')
-    .addEntry('Tchat', './assets/react/Tchat/Tchat.jsx')
-    .addEntry('MTG', './assets/react/MTG/MTG.jsx')
+    
+    .addEntry('Home', './assets/react/pages/Home/Home.jsx')
+    .addEntry('LegalNotice', './assets/react/pages/LegalNotice/LegalNotice.jsx')
+    
+    .addEntry('Profil', './assets/react/pages/Profil/Profil.jsx')
+    .addEntry('Tchat', './assets/react/pages/Tchat/Tchat.jsx')
+    
+    .addEntry('Games', './assets/react/pages/Games/Games.jsx')
+    .addEntry('Morpion', './assets/react/pages/Games/Morpion/Morpion.jsx')
+    .addEntry('CandyCrush', './assets/react/pages/Games/CandyCrush/CandyCrush.jsx')
+    
+    .addEntry('MTG', './assets/react/pages/MTG/MTG.jsx')
+    
+    .addEntry('RosetteTwitch', './assets/react/pages/RosetteTwitch/RosetteTwitch.jsx')
+    .addEntry('Organisator', './assets/react/pages/Organisator/Organisator.jsx')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

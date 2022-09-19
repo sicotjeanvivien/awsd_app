@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import TchatApi from "../../Service/TchatApi";
+import TchatApi from "../../../Service/TchatApi";
 
 const Chat = ({ socket, userConnected, room }) => {
 

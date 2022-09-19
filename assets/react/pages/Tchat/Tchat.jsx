@@ -1,13 +1,15 @@
 import { createRoot } from "react-dom/client";
 import React, { useCallback, useEffect, useState } from "react";
 
-import Spinner from "../component/Spinner";
-import ConversationList from "./components/ConversationsList";
-import TchatApi from "../Service/TchatApi";
+import TchatApi from "../../Service/TchatApi";
 
+import Header from "../../component/Header/Header";
+import Footer from "../../component/Footer/Footer";
+import Spinner from "../../component/Spinner";
 import Chat from "./components/Chat";
-import Security from "../Service/Security";
 import Newconversation from "./components/NewConversation";
+import ConversationList from "./components/ConversationsList";
+
 
 const Tchat = () => {
 
@@ -21,12 +23,9 @@ const Tchat = () => {
   const [showNewConversation, setShowNewConversation] = useState(false);
 
   useEffect(() => {
-    Security.checkIfUserIsConnected().then(async res => {
-      setUserConnected(res);
-      loadConversations(res.username);
-      setSocket(await TchatApi.connectSocket());
-    })
-  }, []);
+    setSocket( TchatApi.connectSocket());
+    loadConversations(userConnected.username);
+  }, [userConnected]);
 
 
   // API
@@ -41,12 +40,12 @@ const Tchat = () => {
   const addConversation = (conversationData) => {
     console.log("start add converstion");
     TchatApi.addConversation(conversationData).then(res => {
-        console.log(res);
-        loadConversations(userConnected.username);
-        console.log(res.id);
-        handClickJoinConversation(res.id + '');
+      console.log(res);
+      loadConversations(userConnected.username);
+      console.log(res.id);
+      handClickJoinConversation(res.id + '');
     });
-};
+  };
 
 
   // Action 
@@ -68,37 +67,43 @@ const Tchat = () => {
   });
 
   return (
-    <div className="App row mt-5">
-      <div className="col-4">
-        <button type="button" className="btn rounded-0 btn-info mb-3"
-          onClick={(e) => handClickNewConverstion(e)}
-        >
-          Nouvelle Conversation</button>
-        {
-          showconversationList ?
-            <ConversationList conversations={conversation}
-              handClickJoinConversation={handClickJoinConversation}
-            />
-            :
-            <Spinner />
-        }
-      </div>
-      <div className="col-8 row">
+    <>
+      <Header userConnected={userConnected} setUserConnected={setUserConnected} />
+      <main className="container">
+        <div className="App row mt-5">
+          <div className="col-4">
+            <button type="button" className="btn rounded-0 btn-info mb-3"
+              onClick={(e) => handClickNewConverstion(e)}
+            >
+              Nouvelle Conversation</button>
+            {
+              showconversationList ?
+                <ConversationList conversations={conversation}
+                  handClickJoinConversation={handClickJoinConversation}
+                />
+                :
+                <Spinner />
+            }
+          </div>
+          <div className="col-8 row">
 
-        {showChat && (
-          <Chat
-            socket={socket}
-            userConnected={userConnected}
-            room={conversationSelected}
-          />
-        )}
-        {
-          showNewConversation && (
-            <Newconversation  addConversation={addConversation} userConnected={userConnected} />
-          )
-        }
-      </div>
-    </div>
+            {showChat && (
+              <Chat
+                socket={socket}
+                userConnected={userConnected}
+                room={conversationSelected}
+              />
+            )}
+            {
+              showNewConversation && (
+                <Newconversation addConversation={addConversation} userConnected={userConnected} />
+              )
+            }
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }
 
