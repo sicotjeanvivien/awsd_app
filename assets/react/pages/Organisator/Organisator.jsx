@@ -17,6 +17,7 @@ const Organisator = () => {
 		<>
 			<Header userConnected={userConnected} setUserConnected={setUserConnected} />
 			<main className='container'>
+				<h1 className="text-center">Organisator</h1>
 				<div className="row">
 					<SelectorWeek currentDate={currentDate} />
 					<TaskList />

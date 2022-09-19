@@ -4,7 +4,9 @@ const Agenda = () => {
 
 	return (
 		<div className="col-6">
-			tassk list
+			
+			Agenda
+
 		</div>
 	);
 }
