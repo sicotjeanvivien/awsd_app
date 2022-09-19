@@ -38,11 +38,8 @@ const Tchat = () => {
     });
   };
   const addConversation = (conversationData) => {
-    console.log("start add converstion");
     TchatApi.addConversation(conversationData).then(res => {
-      console.log(res);
       loadConversations(userConnected.username);
-      console.log(res.id);
       handClickJoinConversation(res.id + '');
     });
   };

@@ -1,9 +1,6 @@
 import React from "react";
 
 const Cart_Games = ({ games }) => {
-	console.log(games, "n");
-
-
 	return (
 		games.length && games.map((value, key) => {
 			return (

@@ -21,7 +21,6 @@ const Newconversation = ({ addConversation, userConnected }) => {
     // Action
     const handleClickSubmitNewconversation = useCallback((e) => {
         e.preventDefault();
-        console.log("handleClick");
         let conversationData = {
             "name": nameConversation,
             "users": [...usersSelected, userConnected["@id"]],

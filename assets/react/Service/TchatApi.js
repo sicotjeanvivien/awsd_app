@@ -17,7 +17,6 @@ export default class TchatApi {
 
   // CONVERSATITION
   static async loadConversations(username) {
-    console.log(username);
     let url = new URL(routing.api_tchat_conversations_get_collection.path, window.location.origin);
     url.searchParams.append("users.username", username)
     return await fetch(url, {

@@ -37,10 +37,8 @@ const Chat = ({ socket, userConnected, room }) => {
           ":" +
           new Date(Date.now()).getMinutes(),
       };
-      console.log(messageList);
       TchatApi.addMessage(messageData);
       await socket.emit("send_message", messageData);
-      console.log(messageData);
       setMessageList((list) => [...list, messageData]);
       setCurrentMessage("");
     }

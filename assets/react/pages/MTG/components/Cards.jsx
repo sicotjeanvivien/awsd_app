@@ -11,7 +11,6 @@ const Cards = ({
     lastPageCards,
     extensionSelected
 }) => {
-    console.log(extensionSelected);
 
     return <>
         <div className="col-12 d-flex mt-2 mb-2">

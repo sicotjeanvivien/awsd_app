@@ -104,7 +104,6 @@ const CandyCrush = () => {
 
     }
   }
-  // console.log(score);
   const onDragStart = (e) => {
     setSquareBeingDragged(e.target);
   };
