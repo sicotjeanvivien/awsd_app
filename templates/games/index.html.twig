@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Jeux{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('Games') }}

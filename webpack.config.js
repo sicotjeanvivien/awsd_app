@@ -21,7 +21,6 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
-    .addEntry('AppReact', './assets/react/App/App.jsx')
     
     .addEntry('Home', './assets/react/pages/Home/Home.jsx')
     .addEntry('LegalNotice', './assets/react/pages/LegalNotice/LegalNotice.jsx')
