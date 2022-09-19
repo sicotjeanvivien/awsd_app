@@ -3,17 +3,24 @@ import React, { useState } from "react";
 
 import Header from "../../component/Header/Header";
 import Footer from "../../component/Footer/Footer";
+import SelectorWeek from "./component/SelectorWeek";
+import TaskList from "./component/TaskList";
+import Agenda from "./component/Agenda";
 
 const Organisator = () => {
 
 	const [userConnected, setUserConnected] = useState({});
+	const [currentDate, setCurrentDate] = useState(new Date());
+
 
 	return (
 		<>
 			<Header userConnected={userConnected} setUserConnected={setUserConnected} />
 			<main className='container'>
 				<div className="row">
-					Not to day please
+					<SelectorWeek currentDate={currentDate} />
+					<TaskList />
+					<Agenda />
 				</div>
 			</main>
 			<Footer />
