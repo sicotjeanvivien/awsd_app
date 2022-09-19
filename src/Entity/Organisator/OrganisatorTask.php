@@ -5,7 +5,7 @@ namespace App\Entity\Organisator;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\CommunAttributesTrait;
 use App\Entity\User;
-use App\Repository\Organistor\OrganisatorTaskRepository;
+use App\Repository\Organisator\OrganisatorTaskRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -14,7 +14,9 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 #[ORM\Entity(repositoryClass: OrganisatorTaskRepository::class)]
 #[HasLifecycleCallbacks]
-#[ApiResource]
+#[ApiResource(
+    attributes: ["security" => "is_granted('ROLE_USER')"]
+)]
 class OrganisatorTask
 {
 
