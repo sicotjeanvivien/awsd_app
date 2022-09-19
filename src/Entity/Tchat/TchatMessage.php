@@ -17,6 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[HasLifecycleCallbacks]
 #[
     ApiResource(
+        attributes: ["security" => "is_granted('ROLE_USER')"],
         collectionOperations: [
             "get" => [
                 'normalization_context' => ["groups" => ["tchatMessages:read:collection"]]
