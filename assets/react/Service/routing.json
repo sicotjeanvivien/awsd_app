@@ -1,4 +1,10 @@
 {
+    "api_genid": {
+        "path": "\/api\/.well-known\/genid\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
     "api_entrypoint": {
         "path": "\/api\/{index}",
         "parameters": {
@@ -12,7 +18,8 @@
     "api_jsonld_context": {
         "path": "\/api\/contexts\/{shortName}",
         "parameters": {
-            "shortName": "{.+}"
+            "shortName": "{[^.]+}",
+            "_format": "{jsonld}"
         }
     },
     "api_mtg_artists_get_collection": {
@@ -105,6 +112,38 @@
             "id": "{id}"
         }
     },
+    "api_organisator_tasks_collection": {
+        "path": "\/api\/organisator_tasks\/custom",
+        "parameters": []
+    },
+    "api_organisator_tasks_post_collection": {
+        "path": "\/api\/organisator_tasks",
+        "parameters": []
+    },
+    "api_organisator_tasks_get_item": {
+        "path": "\/api\/organisator_tasks\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
+    "api_organisator_tasks_put_item": {
+        "path": "\/api\/organisator_tasks\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
+    "api_organisator_tasks_patch_item": {
+        "path": "\/api\/organisator_tasks\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
+    "api_organisator_tasks_delete_item": {
+        "path": "\/api\/organisator_tasks\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
     "api_tchat_conversations_get_collection": {
         "path": "\/api\/tchat_conversations",
         "parameters": []
@@ -155,29 +194,7 @@
         "path": "\/api\/users",
         "parameters": []
     },
-    "api_users_post_collection": {
-        "path": "\/api\/users",
-        "parameters": []
-    },
     "api_users_get_item": {
-        "path": "\/api\/users\/{id}",
-        "parameters": {
-            "id": "{id}"
-        }
-    },
-    "api_users_delete_item": {
-        "path": "\/api\/users\/{id}",
-        "parameters": {
-            "id": "{id}"
-        }
-    },
-    "api_users_put_item": {
-        "path": "\/api\/users\/{id}",
-        "parameters": {
-            "id": "{id}"
-        }
-    },
-    "api_users_patch_item": {
         "path": "\/api\/users\/{id}",
         "parameters": {
             "id": "{id}"

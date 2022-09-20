@@ -129,9 +129,11 @@ const MTG = () => {
     return (
         <>
             <Header userConnected={userConnected} setUserConnected={setUserConnected} />
-            <div className="row">
-                {renderView}
-            </div>
+            <main className="container">
+                <div className="row">
+                    {renderView}
+                </div>
+            </main>
             <Footer />
         </>
     );

@@ -1,0 +1,39 @@
+.accordion {
+    background-color: var(--UCLA_blue);
+    color: #eee;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    transition: 0.4s;
+}
+
+.accordion:after {
+    content: '\02795';
+    /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #eee;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2796";
+    /* Unicode character for "minus" sign (-) */
+}
+
+.active,
+.accordion:hover {
+    background-color: #ccc;
+    color: black;
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: var(--slate_gray);
+    color: var(--maastricht_blue);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}

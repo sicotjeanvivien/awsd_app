@@ -1,10 +1,18 @@
 import React from "react";
+import Task from "./Task";
 
-const TaskList = () => {
+const TaskList = ({tasks}) => {
+
+	console.log(tasks);
 
 	return (
 		<div className="col-6">
-			tassk list
+			<h5>Tâche de le semaine</h5>
+			{
+				tasks.map((value, key)=>{
+					return <Task key={key} task={value} />
+				})
+			}
 		</div>
 	);
 }

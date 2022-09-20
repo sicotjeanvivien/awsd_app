@@ -1,12 +1,14 @@
 import React from "react";
 
-const Agenda = () => {
+const Agenda = ({tasksByDay}) => {
 
+	console.log(tasksByDay);
+
+
+	
 	return (
 		<div className="col-6">
 			
-			Agenda
-
 		</div>
 	);
 }

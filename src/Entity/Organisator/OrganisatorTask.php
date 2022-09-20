@@ -3,6 +3,7 @@
 namespace App\Entity\Organisator;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\API\OrganisatorTaskController;
 use App\Entity\CommunAttributesTrait;
 use App\Entity\User;
 use App\Repository\Organisator\OrganisatorTaskRepository;
@@ -15,7 +16,21 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 #[ORM\Entity(repositoryClass: OrganisatorTaskRepository::class)]
 #[HasLifecycleCallbacks]
 #[ApiResource(
-    attributes: ["security" => "is_granted('ROLE_USER')"]
+    attributes: ["security" => "is_granted('ROLE_USER')"],
+    collectionOperations: [
+        "collection" => [
+            "method" => "GET",
+            "path" => "/organisator_tasks/custom/{weekNumber}",
+            "controller" => OrganisatorTaskController::class
+        ],
+        "post"
+    ],
+    itemOperations: [
+        "get" => ["security" => "is_granted('ROLE_USER') and object.user == user"],
+        "put",
+        "patch",
+        "delete"
+    ]
 )]
 class OrganisatorTask
 {
@@ -31,14 +46,14 @@ class OrganisatorTask
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(options: ["default"=> false])]
+    #[ORM\Column(options: ["default" => false])]
     private ?bool $making = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'organisatorTasks')]
-    private ?User $user = null;
+    public ?User $user = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'tasks')]
     private ?self $organisatorTask = null;
