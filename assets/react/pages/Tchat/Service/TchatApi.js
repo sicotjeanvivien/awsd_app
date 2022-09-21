@@ -11,8 +11,8 @@ export default class TchatApi {
   };
 
   static connectSocket() {
-    return io.connect("http://localhost:3033");
-    // return io.connect("https://tchat.awsd.fr");
+    if (window.location.origin === "https://127.0.0.1:8000") return io.connect("http://localhost:3033");
+    return io.connect("https://tchat.awsd.fr");
   }
 
   // CONVERSATITION

@@ -1,15 +1,20 @@
 import React from "react";
 import Task from "./Task";
 
-const TaskList = ({tasks}) => {
+const TaskList = ({ tasks }) => {
 
-	console.log(tasks);
+	const [modalHidden, setModelHidden] = useState("d-none");
+
+	// ACTION
+	const handleClickHidden = useCallback(() => {
+		setModelHidden("d-none");
+	});
 
 	return (
 		<div className="col-6">
 			<h5>Tâche de le semaine</h5>
 			{
-				tasks.map((value, key)=>{
+				tasks.map((value, key) => {
 					return <Task key={key} task={value} />
 				})
 			}

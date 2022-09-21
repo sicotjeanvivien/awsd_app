@@ -1,6 +1,6 @@
 import React from "react";
 
-const ButtonShowTaskForm = ({handleClickShowForm}) => {
+const ButtonShowTaskForm = ({ handleClickShowForm }) => {
 
 	return (
 		<div className="col-12 m-1">

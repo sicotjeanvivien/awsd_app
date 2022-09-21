@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import ButtonTrashDeleteTask from "./button/ButtonTrashDeleteTask";
 
 const Task = ({ task }) => {
 
@@ -22,6 +23,7 @@ const Task = ({ task }) => {
 					onClick={e => handleClickToggleCollapse(e)}
 				>
 					{task.task}</button>
+				<ButtonTrashDeleteTask />
 			</div>
 			<div className="panel" id={"js_panel_" + task.id}>
 				<p>{task.description}</p>

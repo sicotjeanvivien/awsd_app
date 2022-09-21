@@ -1,15 +1,8 @@
-import React, { useEffect, useState } from "react";
-
-import DateService from "../Service/OrganisatorService";
+import React, { useState } from "react";
 
 const SelectorWeek = ({ weekSelected, setWeekSelected }) => {
 
 	const [weekInYear, setWeekInYear] = useState(Array(52).fill(""));
-	const [optionRenderView, setOptionRenderView] = useState({});
-
-	useEffect(() => {
-	}, [])
-
 
 	return (
 		<div className="col-12 pt-3 pb-3 input-group">
