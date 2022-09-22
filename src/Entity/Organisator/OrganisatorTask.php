@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
     collectionOperations: [
         "collection" => [
             "method" => "GET",
-            "path" => "/organisator_tasks/custom/{weekNumber}",
+            "path" => "/organisator_tasks/custom",
             "controller" => OrganisatorTaskController::class
         ],
         "post"
