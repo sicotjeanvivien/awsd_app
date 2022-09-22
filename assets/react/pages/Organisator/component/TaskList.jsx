@@ -1,23 +1,25 @@
 import React from "react";
+import DeleteTaskModal from "./modal/DeleteTaskModal";
 import Task from "./Task";
 
-const TaskList = ({ tasks }) => {
-
-	const [modalHidden, setModelHidden] = useState("d-none");
-
-	// ACTION
-	const handleClickHidden = useCallback(() => {
-		setModelHidden("d-none");
-	});
+const TaskList = ({ tasks, handleClickDeletingTask, modalHidden, handleClickHidden, handleClickToggleMaking }) => {
 
 	return (
 		<div className="col-6">
 			<h5>Tâche de le semaine</h5>
 			{
 				tasks.map((value, key) => {
-					return <Task key={key} task={value} />
+					return <Task key={key} task={value}
+						handleClickHidden={handleClickHidden}
+						handleClickToggleMaking={handleClickToggleMaking}
+					/>
 				})
 			}
+			<DeleteTaskModal
+				modalHidden={modalHidden}
+				handleClickHidden={handleClickHidden}
+				handleClickDeletingTask={handleClickDeletingTask}
+			/>
 		</div>
 	);
 }

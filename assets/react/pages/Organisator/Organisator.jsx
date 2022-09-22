@@ -18,11 +18,14 @@ const Organisator = () => {
 
 	const [userConnected, setUserConnected] = useState({});
 	const [weekSelected, setWeekSelected] = useState(DateService.getWeekNumber(new Date()))
-	const [tasks, setTasks] = useState({});
+	const [tasks, setTasks] = useState([]);
 	const [tasksByDay, setTasksByDay] = useState(DateService.getModelTasksByDay());
+
+	const [taskIdDeleting, setTaskIdDeleting] = useState();
 
 	const [showTask, setShowTask] = useState(false);
 	const [showForm, setShowForm] = useState(false);
+	const [modalHidden, setModelHidden] = useState("d-none");
 
 	const [errorPostMessage, setErrorPostMessage] = useState("");
 
@@ -43,7 +46,7 @@ const Organisator = () => {
 	const submitNewTask = (data) => {
 		setShowForm(false);
 		setShowTask(false);
-		if (weekSelected  && userConnected["@id"] ) {
+		if (weekSelected && userConnected["@id"]) {
 			let newTask = {
 				"task": data.task,
 				"weekNumber": weekSelected,
@@ -60,9 +63,24 @@ const Organisator = () => {
 				}
 				loadTask();
 			})
-		}else{
+		} else {
 			setErrorPostMessage("error data empty");
 		}
+	}
+
+	const deleteTask = (taskId) => {
+		console.log("delete task");
+		OrganisatorApi.deletedTask(taskId).then(res => {
+			loadTask();
+			handleClickHidden(res);
+		})
+	}
+
+	const patchTask = (task) => {
+		OrganisatorApi.patchTask(task).then(res => {
+		loadTask();
+
+		});
 	}
 
 	// ACTION
@@ -71,19 +89,50 @@ const Organisator = () => {
 		showForm ? setShowForm(false) : setShowForm(true);
 	})
 
+	const handleClickHidden = useCallback((e) => {
+		if (modalHidden === "d-none") {
+			setModelHidden("d-block");
+			setTaskIdDeleting(e.currentTarget.value)
+		} else {
+			setModelHidden("d-none");
+			setTaskIdDeleting(0);
+		}
+	});
+
+	const handleClickDeletingTask = useCallback(() => {
+		console.log("deleted task");
+		deleteTask(taskIdDeleting);
+	})
+
+	const handleClickToggleMaking = useCallback((e) => {
+
+		let checked = e.currentTarget.checked;
+		let taskId = e.currentTarget.value;
+		let taskSeleted = tasks.filter((task) => task.id == taskId)[0];
+		taskSeleted.making = checked;
+		patchTask(taskSeleted);
+
+	})
+
 	// VIEW
 	let renderView = showForm ?
 		<TaskForm
 			handleClickShowForm={handleClickShowForm}
 			submitNewTask={submitNewTask}
+			setErrorPostMessage={setErrorPostMessage}
 			weekSelected={weekSelected}
 			errorPostMessage={errorPostMessage}
-			setErrorPostMessage={setErrorPostMessage}
 		/>
 		:
 		<>
 			<ButtonShowTaskForm handleClickShowForm={handleClickShowForm} />
-			<TaskList tasks={tasks} />
+			<TaskList
+				tasks={tasks}
+				taskIdDeleting={taskIdDeleting} setTaskIdDeleting={setTaskIdDeleting}
+				modalHidden={modalHidden} handleClickHidden={handleClickHidden}
+				handleClickDeletingTask={handleClickDeletingTask}
+				handleClickToggleMaking={handleClickToggleMaking}
+			/>
 			<Agenda tasksByDay={tasksByDay} />
 		</>;
 
