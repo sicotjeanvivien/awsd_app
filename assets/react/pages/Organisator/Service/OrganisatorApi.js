@@ -5,7 +5,7 @@ import routing from "../../../Service/routing.json"
 export default class OrganisatorApi extends ApiService {
 
 	static async getOrganisatorTask(weekNumber) {
-		let url = new URL(routing.api_organisator_tasks_collection.path, window.location.origin);
+		let url = new URL(routing.api_organisator_tasks_get_collection.path, window.location.origin);
 		url.searchParams.append("weekNumber", weekNumber)
 		return await fetch(url, {
 			method: "GET",
