@@ -8,7 +8,7 @@ const TaskList = ({ tasks, handleClickDeletingTask, modalHidden, handleClickHidd
 		<div className="col-6">
 			<h5>Tâche de le semaine</h5>
 			{
-				tasks.map((value, key) => {
+			 tasks.length &&	tasks.map((value, key) => {
 					return <Task key={key} task={value}
 						handleClickHidden={handleClickHidden}
 						handleClickToggleMaking={handleClickToggleMaking}
