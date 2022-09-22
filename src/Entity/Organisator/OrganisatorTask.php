@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 #[ApiResource(
     attributes: ["security" => "is_granted('ROLE_USER')"],
     collectionOperations: [
-        "collection" => [
+        "get" => [
             "method" => "GET",
             "path" => "/organisator_tasks/custom",
             "controller" => OrganisatorTaskController::class
