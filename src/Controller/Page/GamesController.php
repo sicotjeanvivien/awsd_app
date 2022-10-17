@@ -24,6 +24,12 @@ class GamesController extends AbstractController
                 "rules" => "Aligner 3 bonbons identiques pour gagner des points.",
                 "image" => "/img/candy_crush.png",
                 "link" => "game_candy_crush"
+            ],
+            [
+                "name" => "Chuck Norris Fact",
+                "rules" => "Découvrez les Chuck Norris Facts, entièrement en Français. Servis avec amour et coups de pieds circulaires",
+                "image" => "#",
+                "link" => "game_chuck_norris_fact"
             ]
         ];
 
@@ -43,4 +49,12 @@ class GamesController extends AbstractController
     {
         return $this->render('/games/candy_crush/index.html.twig');
     }
+ 
+    #[Route('/chuck_norris_fact', name: 'game_chuck_norris_fact', methods:["GET"])]
+    public function chuck_norris_fact()
+    {
+        return $this->render('/games/chuck_norris_fact/index.html.twig');
+    }
+
+
 }

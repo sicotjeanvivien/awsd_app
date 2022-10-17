@@ -22,6 +22,30 @@
             "_format": "{jsonld}"
         }
     },
+    "api_games_chuck_norris_facts_get_collection": {
+        "path": "\/api\/games_chuck_norris_facts",
+        "parameters": []
+    },
+    "api_games_chuck_norris_facts_post_collection": {
+        "path": "\/api\/games_chuck_norris_facts",
+        "parameters": []
+    },
+    "api_games_chuck_norris_facts_random_collection": {
+        "path": "\/api\/chuck_norris_fact\/random",
+        "parameters": []
+    },
+    "api_games_chuck_norris_facts_get_item": {
+        "path": "\/api\/games_chuck_norris_facts\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
+    "api_games_chuck_norris_facts_delete_item": {
+        "path": "\/api\/games_chuck_norris_facts\/{id}",
+        "parameters": {
+            "id": "{id}"
+        }
+    },
     "api_mtg_artists_get_collection": {
         "path": "\/api\/mtg_artists",
         "parameters": []
@@ -112,7 +136,7 @@
             "id": "{id}"
         }
     },
-    "api_organisator_tasks_collection": {
+    "api_organisator_tasks_get_collection": {
         "path": "\/api\/organisator_tasks\/custom",
         "parameters": []
     },
@@ -220,6 +244,10 @@
     },
     "game_candy_crush": {
         "path": "\/games\/candy_crush",
+        "parameters": []
+    },
+    "game_chuck_norris_fact": {
+        "path": "\/games\/chuck_norris_fact",
         "parameters": []
     },
     "app_home": {

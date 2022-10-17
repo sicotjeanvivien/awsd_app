@@ -31,6 +31,7 @@ Encore
     .addEntry('Games', './assets/react/pages/Games/Games.jsx')
     .addEntry('Morpion', './assets/react/pages/Games/Morpion/Morpion.jsx')
     .addEntry('CandyCrush', './assets/react/pages/Games/CandyCrush/CandyCrush.jsx')
+    .addEntry('ChuckNorrisFact', './assets/react/pages/Games/ChuckNorrisFact/ChuckNorrisFact.jsx')
     
     .addEntry('MTG', './assets/react/pages/MTG/MTG.jsx')
     

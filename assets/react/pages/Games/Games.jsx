@@ -22,6 +22,12 @@ const Games = () => {
 			"rules": "Aligner 3 bonbons identiques pour gagner des points.",
 			"image": "\/img\/candy_crush.png",
 			"link": routing.game_candy_crush.path
+		}, 
+		{
+			"name": "Chuck Norris Fact",
+			"rules": "Découvrez les Chuck Norris Facts, entièrement en Français. Servis avec amour et coups de pieds circulaires",
+			"image": "#",
+			"link": routing.game_chuck_norris_fact.path
 		}
 	]);
 
