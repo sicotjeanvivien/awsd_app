@@ -27,7 +27,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
         "putCustom" => [
             "name" => "putCustom",
             "method" => "PUT",
-            "path" => "/chuck_norris_fact/putCustom",
+            "path" => "/chuck_norris_fact/putCustom/{id}",
             "controller" => ChuckNorrisFactController::class
         ]
     ],
