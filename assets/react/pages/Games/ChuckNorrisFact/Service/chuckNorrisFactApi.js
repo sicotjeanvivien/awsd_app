@@ -16,6 +16,19 @@ export default class ChuckNorrisFactApi extends ApiService {
 		})
 	}
 
+	static async post(fact) {
+		let url = new URL(routing.api_games_chuck_norris_facts_post_collection, window.location.origin);
+		return await fetch(url, {
+			method: "POST",
+			headers: this.headers,
+			body: JSON.stringify(fact)
+		}).then(res => {
+			if (res.ok) return res.json();
+			return { "error": false, "message": "code error : " + res.status }
+		})
+
+	}
+
 	static async put(id, fact) {
 		let url = window.location.origin + routing.api_games_chuck_norris_facts_putCustom_item.path;
 		url = url.replace("{id}", id);

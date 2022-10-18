@@ -15,7 +15,7 @@ const ChuckNorrisFact = () => {
 
 	useEffect(() => {
 		ChuckNorrisFactApi.getRandom().then(res => {
-			setFact(res);
+			renderView(res);
 		});
 	}, []);
 
@@ -25,20 +25,29 @@ const ChuckNorrisFact = () => {
 		}
 	}, [fact]);
 
-	// ACTION
 
+	// ACTION
 
 	const handclickLiked = useCallback((e) => {
 		ChuckNorrisFactApi.put(fact.id, { "liked": (parseInt(fact.liked) + 1) }).then(res => {
-			setFact(res);
+			renderView(res);
+		});
+	});
+	const handclickDisliked = useCallback((e) => {
+		ChuckNorrisFactApi.put(fact.id, { "disliked": (parseInt(fact.disliked) + 1) }).then(res => {
+			renderView(res);
 		});
 	});
 
-	const handclickDisliked = useCallback((e) => {
-		ChuckNorrisFactApi.put(fact.id, { "disliked": (parseInt(fact.disliked) + 1) }).then(res => {
-			setFact(res);
-		});
-	});
+	// VIEW
+
+	const renderView = (res) => {
+		if (res) {
+			setFact(res)
+		} else {
+			setContentView(<div className='bg-danger'>error server</div>)
+		};
+	}
 
 	return (
 		<>

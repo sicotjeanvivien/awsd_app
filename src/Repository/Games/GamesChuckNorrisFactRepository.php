@@ -42,7 +42,7 @@ class GamesChuckNorrisFactRepository extends ServiceEntityRepository
     public function findRandom()
     {
         $sql = "SELECT f
-        FROM App\Entity\Games\GamesChuckNorrisFact f 
+        FROM App\Entity\Games\GamesChuckNorrisFact f WHERE f.isValided = TRUE
         ORDER BY f.updated ASC
         ";
 
