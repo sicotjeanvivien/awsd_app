@@ -17,10 +17,13 @@ export default class ChuckNorrisFactApi extends ApiService {
 	}
 
 	static async post(fact) {
-		let url = new URL(routing.api_games_chuck_norris_facts_post_collection, window.location.origin);
+		let url = new URL(routing.api_games_chuck_norris_facts_post_collection.path, window.location.origin);
 		return await fetch(url, {
 			method: "POST",
-			headers: this.headers,
+			headers: {
+				"Accept": "application/ld+json",
+				"Content-Type": "application/ld+json",
+			},
 			body: JSON.stringify(fact)
 		}).then(res => {
 			if (res.ok) return res.json();

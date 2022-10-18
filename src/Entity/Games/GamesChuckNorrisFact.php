@@ -41,14 +41,14 @@ class GamesChuckNorrisFact
     #[ORM\Column(type: Types::TEXT)]
     private ?string $fact = null;
 
-    #[ORM\Column(nullable: true, options: ['default' => 0])]
-    private ?int $liked = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $liked = 0;
 
-    #[ORM\Column(nullable: true, options: ['default' => 0])]
-    private ?int $disliked = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $disliked = 0;
 
-    #[ORM\Column(nullable: true, options: ['default' => false])]
-    private ?bool $isValided = null;
+    #[ORM\Column(nullable: true)]
+    private ?bool $isValided = false;
 
     public function getFact(): ?string
     {

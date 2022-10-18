@@ -6,11 +6,13 @@ import Footer from "../../../component/Footer/Footer";
 import ChuckNorrisFactApi from './Service/chuckNorrisFactApi';
 import Spinner from '../../../component/Spinner';
 import Fact from './component/Fact';
+import Form from './component/Form';
 
 const ChuckNorrisFact = () => {
 
 	const [userConnected, setUserConnected] = useState({});
 	const [fact, setFact] = useState({});
+
 	const [contentView, setContentView] = useState(<Spinner />);
 
 	useEffect(() => {
@@ -21,23 +23,52 @@ const ChuckNorrisFact = () => {
 
 	useEffect(() => {
 		if (fact.fact) {
-			setContentView(<Fact fact={fact} handclickLiked={handclickLiked} handclickDisliked={handclickDisliked} />)
+			setContentView(<Fact fact={fact}
+				handleclickLiked={handleclickLiked}
+				handleclickDisliked={handleclickDisliked}
+				handleclickChangeView={handleclickChangeView}
+			/>);
 		}
 	}, [fact]);
 
 
 	// ACTION
 
-	const handclickLiked = useCallback((e) => {
+	const handleclickLiked = useCallback((e) => {
+		setContentView(<Spinner />)
 		ChuckNorrisFactApi.put(fact.id, { "liked": (parseInt(fact.liked) + 1) }).then(res => {
 			renderView(res);
 		});
 	});
-	const handclickDisliked = useCallback((e) => {
+	const handleclickDisliked = useCallback((e) => {
+		setContentView(<Spinner />)
 		ChuckNorrisFactApi.put(fact.id, { "disliked": (parseInt(fact.disliked) + 1) }).then(res => {
 			renderView(res);
 		});
 	});
+
+	const handleclickChangeView = useCallback((view) => {
+		console.log("start change", view);
+		switch (view) {
+			case "fact":
+				setContentView(<Fact
+					fact={fact}
+					handleclickLiked={handleclickLiked}
+					handleclickDisliked={handleclickDisliked}
+					handleclickChangeView={handleclickChangeView}
+				/>)
+				break;
+			case "form":
+				setContentView(<Form
+					handleclickChangeView={handleclickChangeView}
+				/>)
+				break;
+
+			default:
+				break;
+		}
+
+	})
 
 	// VIEW
 
@@ -48,6 +79,7 @@ const ChuckNorrisFact = () => {
 			setContentView(<div className='bg-danger'>error server</div>)
 		};
 	}
+
 
 	return (
 		<>
