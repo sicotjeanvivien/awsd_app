@@ -41,12 +41,20 @@ class GamesChuckNorrisFactRepository extends ServiceEntityRepository
 
     public function findRandom()
     {
-        $sql = "SELECT f
-        FROM App\Entity\Games\GamesChuckNorrisFact f WHERE f.isValided = TRUE
-        ORDER BY f.updated ASC
-        ";
 
-        return $this->getEntityManager()->createQuery($sql)->setMaxResults(1)->getOneOrNullResult();
+        $em = $this->getEntityManager();
+
+        $sql = "SELECT f.id
+                FROM App\Entity\Games\GamesChuckNorrisFact f 
+                WHERE f.isValided = TRUE ";
+        $array_id = array_column($em->createQuery($sql)->getResult(), "id");
+        $id = $array_id[array_rand($array_id)];
+
+        $sql = "SELECT f
+                FROM App\Entity\Games\GamesChuckNorrisFact f 
+                WHERE f.id = :id
+                ";
+        return $em->createQuery($sql)->setParameter(":id", $id)->getOneOrNullResult();
     }
 
     //    /**
