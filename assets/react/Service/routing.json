@@ -40,8 +40,8 @@
             "id": "{id}"
         }
     },
-    "api_games_chuck_norris_facts_delete_item": {
-        "path": "\/api\/games_chuck_norris_facts\/{id}",
+    "api_games_chuck_norris_facts_putCustom_item": {
+        "path": "\/api\/chuck_norris_fact\/putCustom\/{id}",
         "parameters": {
             "id": "{id}"
         }

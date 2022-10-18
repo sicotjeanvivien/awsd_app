@@ -38,7 +38,6 @@ class TchatFixtures extends Fixture
         // foreach ($messages as $key => $message) {
         //     $tchatMessageNew =  new TchatMessage();
         //     $user = $this->userRepository->findOneBy(["username" => $message["username"]]);
-        //     dump($this->userRepository->findAll());
         //     $tchatMessageNew
         //         ->setContent($message["content"])
         //         ->setUser($user);

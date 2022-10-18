@@ -40,7 +40,6 @@ export default class OrganisatorApi extends ApiService {
       method: "DELETE",
       headers: this.headers
     }).then(res => {
-      console.log(res);
       if (res.ok) return { "error": false, "message": "code error : " + res.status };
       return { "error": true, "message": "code error : " + res.status }
     })

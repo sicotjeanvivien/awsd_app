@@ -69,7 +69,6 @@ const Organisator = () => {
 	}
 
 	const deleteTask = (taskId) => {
-		console.log("delete task");
 		OrganisatorApi.deletedTask(taskId).then(res => {
 			loadTask();
 			handleClickHidden(res);
@@ -100,7 +99,6 @@ const Organisator = () => {
 	});
 
 	const handleClickDeletingTask = useCallback(() => {
-		console.log("deleted task");
 		deleteTask(taskIdDeleting);
 	})
 

@@ -14,7 +14,6 @@ const ChuckNorrisFact = () => {
 	const [contentView, setContentView] = useState(<Spinner />);
 
 	useEffect(() => {
-		console.log("start chuck norris fact random");
 		ChuckNorrisFactApi.getRandom().then(res => {
 			setFact(res);
 		});
@@ -30,13 +29,15 @@ const ChuckNorrisFact = () => {
 
 
 	const handclickLiked = useCallback((e) => {
-		console.log("handclickLiked");
-		ChuckNorrisFactApi.put
-
+		ChuckNorrisFactApi.put(fact.id, { "liked": (parseInt(fact.liked) + 1) }).then(res => {
+			setFact(res);
+		});
 	});
 
 	const handclickDisliked = useCallback((e) => {
-		console.log("handclickDisliked");
+		ChuckNorrisFactApi.put(fact.id, { "disliked": (parseInt(fact.disliked) + 1) }).then(res => {
+			setFact(res);
+		});
 	});
 
 	return (

@@ -6,6 +6,7 @@ use App\Repository\Games\GamesChuckNorrisFactRepository;
 use Doctrine\ORM\Query\Expr\Func;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ChuckNorrisFactController extends AbstractController
 {
@@ -18,8 +19,6 @@ class ChuckNorrisFactController extends AbstractController
 
     public function __invoke($id = null)
     {
-        dump([$this->request->getCurrentRequest()->get("_route"), $id]);
-
         switch ($this->request->getCurrentRequest()->get("_route")) {
             case 'api_games_chuck_norris_facts_random_collection':
                 return $this->getFactRandom();
@@ -43,9 +42,11 @@ class ChuckNorrisFactController extends AbstractController
 
     private function putCustom($id)
     {
-        $fact = $this->gamesChuckNorrisFactRepository->find($id);
-        
-        
-        return ["hello boyys"];
+        if ($data = json_decode($this->request->getCurrentRequest()->getContent())) {
+            $fact = $this->gamesChuckNorrisFactRepository->find($id);
+            $this->gamesChuckNorrisFactRepository->add($fact, true);
+            return $this->gamesChuckNorrisFactRepository->findRandom();
+        }
+        return throw new HttpException(500, "error server");
     }
 }

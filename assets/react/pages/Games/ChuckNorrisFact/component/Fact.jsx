@@ -2,8 +2,6 @@ import React from "react";
 
 const Fact = ({ fact, handclickLiked, handclickDisliked }) => {
 
-	console.log(fact);
-
 	return (
 		<>
 			<div className="col-12 pt-5 pb-5 bg-white text-dark">
@@ -27,7 +25,6 @@ const Fact = ({ fact, handclickLiked, handclickDisliked }) => {
 					</button>
 					<p className="text-center">{fact.disliked}</p>
 				</div>
-
 			</div>
 		</>
 	)
