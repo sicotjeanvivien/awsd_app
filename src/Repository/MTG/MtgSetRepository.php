@@ -43,6 +43,15 @@ class MtgSetRepository extends ServiceEntityRepository
         }
     }
 
+    public function countAll()
+    {
+        $sql = "SELECT COUNT(s.id) 
+            FROM App\Entity\MTG\MtgSet s
+        ";
+
+        return $this->getEntityManager()->createQuery($sql)->getSingleScalarResult();
+    }
+
     //    /**
     //     * @return MtgSet[] Returns an array of MtgSet objects
     //     */

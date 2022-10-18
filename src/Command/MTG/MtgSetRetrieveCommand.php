@@ -34,7 +34,7 @@ class MtgSetRetrieveCommand extends Command
 
         $setInBDD =  $this->mtgSetRepository->customFieldFindAll("name");
         foreach (Set::all() as $key => $set) {
-            if (!in_array($set, $setInBDD)) {
+            if (!in_array($set->name, $setInBDD)) {
                 $setNew = new MtgSet();
                 $setNew
                     ->setCode($set->code)

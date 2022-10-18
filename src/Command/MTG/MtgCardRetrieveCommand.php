@@ -54,8 +54,8 @@ class MtgCardRetrieveCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->comment("Command START");
 
-        $mtgSet = $this->mtgSetRepository->findOneBy(["code" => "NEO"]);
-        $this->mtgService->loadingCardBySet($mtgSet);
+        $mtgSet = $this->mtgSetRepository->findOneBy(["code" => "UNF"]);
+        // $this->mtgService->loadingCardBySet($mtgSet);
         $io->success("Command END");
 
         return Command::SUCCESS;
