@@ -64,7 +64,7 @@ const Calculatrice = () => {
     return (<>
         <Header userConnected={userConnected} setUserConnected={setUserConnected} />
         <main className='container-fluid row justify-content-center'>
-            <div className="col-8 row justify-content-between mt-5 mb-5 badass">
+            <div className="col-8 row justify-content-between mt-1 mb-1 badass">
                 <div className="col-12 row align-items-center p-0 m-0 ">
                     <div className="col-12 bg-dark text-light h-50 fw-bold text-end">
                         <div className="fs-1"><span>{operator}</span>{value}</div>
