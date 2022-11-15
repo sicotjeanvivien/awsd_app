@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Jeux{% endblock %}
+{% block title %}Projet{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('Games') }}
+    {{ encore_entry_script_tags('Projects') }}
 {% endblock %}
 
 {% block body %}
-
     <script>
-        window.awsd_data = {{games|raw}};
+        window.awsd_projects = {{projects|raw}};
     </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>

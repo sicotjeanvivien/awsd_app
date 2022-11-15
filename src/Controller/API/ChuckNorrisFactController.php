@@ -3,7 +3,6 @@
 namespace App\Controller\API;
 
 use App\Repository\Games\GamesChuckNorrisFactRepository;
-use Doctrine\ORM\Query\Expr\Func;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\HttpException;

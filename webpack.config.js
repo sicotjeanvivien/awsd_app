@@ -28,10 +28,10 @@ Encore
     .addEntry('Profil', './assets/react/pages/Profil/Profil.jsx')
     .addEntry('Tchat', './assets/react/pages/Tchat/Tchat.jsx')
     
-    .addEntry('Games', './assets/react/pages/Games/Games.jsx')
-    .addEntry('Morpion', './assets/react/pages/Games/Morpion/Morpion.jsx')
-    .addEntry('CandyCrush', './assets/react/pages/Games/CandyCrush/CandyCrush.jsx')
-    .addEntry('ChuckNorrisFact', './assets/react/pages/Games/ChuckNorrisFact/ChuckNorrisFact.jsx')
+    .addEntry('Projects', './assets/react/pages/Projects/Projects.jsx')
+    .addEntry('Morpion', './assets/react/pages/Projects/Morpion/Morpion.jsx')
+    .addEntry('CandyCrush', './assets/react/pages/Projects/CandyCrush/CandyCrush.jsx')
+    .addEntry('ChuckNorrisFact', './assets/react/pages/Projects/ChuckNorrisFact/ChuckNorrisFact.jsx')
     
     .addEntry('MTG', './assets/react/pages/MTG/MTG.jsx')
     

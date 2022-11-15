@@ -19,7 +19,7 @@ const Header = ({userConnected, setUserConnected }) => {
                 </div>
                 <div className="d-flex justify-content-between">
                     <a className="nav-link" href={routing.app_home.path}>Accueil</a>
-                    <a className="nav-link" href={routing.app_games.path}>Jeux</a>
+                    <a className="nav-link" href={routing.app_projects.path}>Projet</a>
                     <a className="nav-link" href={routing.app_mtg.path} >Magic</a>
                     {/* < a className="nav-link" href="#">New World Armurerie</a>
                     < a className="nav-link" href="#" >Rosette Twitch</a> */}
