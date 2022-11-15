@@ -11,7 +11,7 @@ const Cart_Games = ({ projects }) => {
 			}
 
 			return (
-				<div key={key} className="col mt-5">
+				<div key={key} className="col-12 col-sm-6 col-lg-4 mt-5">
 					<div className="card card h-100">
 						<div className="d-flex justify-content-center">
 							<img src={value.image || "/img/projectdefault.png" } className="img-fluid rounded-start max-img-custom" alt="..." />

@@ -48,7 +48,6 @@ const ChuckNorrisFact = () => {
 	});
 
 	const handleclickChangeView = useCallback((view) => {
-		console.log("start change", view);
 		switch (view) {
 			case "fact":
 				setContentView(<Fact

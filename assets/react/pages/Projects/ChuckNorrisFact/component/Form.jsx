@@ -6,13 +6,11 @@ const Form = ({ handleclickChangeView }) => {
 	const [textFact, setTextFact] = useState("");
 
 	const handleSubmitNewfact = useCallback((e) => {
-		console.log("start handle submit fact");
 		e.preventDefault();
 		let fact = {
 			"fact" : textFact
 		}
 		ChuckNorrisFactApi.post(fact).then(res => {
-			console.log(res);
 			handleclickChangeView("fact");
 		})
 	});

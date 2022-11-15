@@ -44,6 +44,12 @@ class ProjectsController extends AbstractController
     {
         return $this->render('/projects/chuck_norris_fact/index.html.twig');
     }
+   
+    #[Route('/calculatrice', name: 'projects_calculatrice', methods:["GET"])]
+    public function calculatrice()
+    {
+        return $this->render('/projects/calculatrice/index.html.twig');
+    }
 
 
 }

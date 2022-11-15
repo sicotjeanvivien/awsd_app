@@ -1,0 +1,57 @@
+[
+    {
+        "name": "Morpion",
+        "description": "Le premier joueur a aligner 3 symboles identiques gagne la partie. Attention, le joueur qui débute est toujours avantagé pour gagner. Pensez donc à alterner!",
+        "github": "https://github.com/sicotjeanvivien/awsd_app",
+        "image": "/img/morpion_img.png",
+        "link": "projects_morpion",
+        "externalLink": false,
+        "id": 1,
+        "created": "2022-11-14T08:51:20+01:00",
+        "updated": "2022-11-14T10:00:11+01:00"
+    },
+    {
+        "name": "Cabdy-Crush v1",
+        "description": "Aligner 3 bonbons identiques pour gagner des points.",
+        "github": "https://github.com/sicotjeanvivien/awsd_app",
+        "image": "/img/candy_crush.png",
+        "link": "projects_candy_crush",
+        "externalLink": false,
+        "id": 2,
+        "created": "2022-11-14T08:52:02+01:00",
+        "updated": "2022-11-14T10:00:11+01:00"
+    },
+    {
+        "name": "Chuck Norris Fact",
+        "description": "Du00e9couvrez les Chuck Norris Facts, entièrement en Français. Servis avec amour et coups de pieds circulaires",
+        "github": "https://github.com/sicotjeanvivien/awsd_app",
+        "image": null,
+        "link": "projects_chuck_norris_fact",
+        "externalLink": false,
+        "id": 3,
+        "created": "2022-11-14T08:52:12+01:00",
+        "updated": "2022-11-14T10:00:11+01:00"
+    },
+    {
+        "name": "Eathing With",
+        "description": "Trouver les meilleur adresse près de vous!!!",
+        "github": "https://github.com/sicotjeanvivien/eatingWith",
+        "image": null,
+        "link": "https://eathingwith.herokuapp.com/",
+        "externalLink": true,
+        "id": 4,
+        "created": "2022-11-14T09:42:46+01:00",
+        "updated": "2022-11-14T09:59:39+01:00"
+    },
+    {
+        "name": "Calculatrice",
+        "description": "Calculatrice via navigateur web avec interface graphique",
+        "github": "https://github.com/sicotjeanvivien/awsd_app",
+        "image": null,
+        "link": "projects_calculatrice",
+        "externalLink": false,
+        "id": 5,
+        "created": "2022-11-14T09:42:46+01:00",
+        "updated": "2022-11-14T09:59:39+01:00"
+    }
+]
