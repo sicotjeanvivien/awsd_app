@@ -11,7 +11,6 @@ const Home = () => {
     return (
         <>
             <Header userConnected={userConnected} setUserConnected={setUserConnected} />
-            <div>LOL</div>
             <main className='container'>
                 <h1>Bienvenu sur AWSD.FR</h1>
                 <p>Ce site rassemble plusieurs projets en un seul endroit. Certains sont visibles et trouvables simplement, d'autres sont cachés.</p>

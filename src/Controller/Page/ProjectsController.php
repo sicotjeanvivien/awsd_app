@@ -22,7 +22,6 @@ class ProjectsController extends AbstractController
     #[Route('', name: 'app_projects', methods:["GET"])]
     public function index(): Response
     {
-        dump($this->serializerInterface->serialize($this->projectRepository->findAll(), "json"));
         return $this->render('/projects/index.html.twig', [
             'projects' => $this->serializerInterface->serialize($this->projectRepository->findAll(), "json")
         ]);
